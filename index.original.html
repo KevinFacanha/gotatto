@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GOODFELLA | Creative Production Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600&amp;family=Geist+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "tertiary-container": "#ff5625",
+                "on-primary-fixed-variant": "#872000",
+                "surface-container": "#201f20",
+                "surface-dim": "#141314",
+                "inverse-primary": "#b12d00",
+                "primary-fixed": "#ffdbd1",
+                "outline": "#ad887e",
+                "on-tertiary-fixed": "#3b0900",
+                "on-primary": "#601400",
+                "surface-container-lowest": "#0f0e0f",
+                "on-primary-fixed": "#3b0900",
+                "tertiary-fixed": "#ffdbd1",
+                "surface-variant": "#363435",
+                "on-secondary": "#2f3131",
+                "surface-bright": "#3a393a",
+                "surface": "#141314",
+                "outline-variant": "#5d4038",
+                "on-secondary-fixed-variant": "#454747",
+                "inverse-surface": "#e6e1e2",
+                "on-secondary-fixed": "#1a1c1c",
+                "secondary-fixed": "#e2e2e2",
+                "on-tertiary": "#601400",
+                "on-error": "#690005",
+                "surface-container-high": "#2b292b",
+                "primary-container": "#ff5625",
+                "primary": "#ffb5a0",
+                "surface-container-low": "#1c1b1c",
+                "surface-container-highest": "#363435",
+                "on-surface": "#e6e1e2",
+                "on-tertiary-fixed-variant": "#872000",
+                "inverse-on-surface": "#313031",
+                "error": "#ffb4ab",
+                "on-background": "#e6e1e2",
+                "secondary-container": "#454747",
+                "background": "#141314",
+                "on-surface-variant": "#e7bdb2",
+                "secondary": "#c6c6c7",
+                "secondary-fixed-dim": "#c6c6c7",
+                "tertiary-fixed-dim": "#ffb5a0",
+                "on-secondary-container": "#b4b5b5",
+                "on-primary-container": "#541100",
+                "tertiary": "#ffb5a0",
+                "on-tertiary-container": "#541100",
+                "surface-tint": "#ffb5a0",
+                "error-container": "#93000a",
+                "on-error-container": "#ffdad6",
+                "primary-fixed-dim": "#ffb5a0"
+              },
+              fontFamily: {
+                "headline": ["Space Grotesk"],
+                "body": ["Inter"],
+                "label": ["Geist Mono"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift-bg {
+            background: linear-gradient(180deg, rgba(20, 19, 20, 0.7) 0%, rgba(28, 27, 28, 0.7) 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-tertiary-container selection:text-on-tertiary-container font-body antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#141314]/70 backdrop-blur-xl shadow-[0_40px_60px_-15px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center px-8 py-6 w-full max-w-[1920px] mx-auto">
+<div class="text-2xl font-black tracking-tighter text-[#FF4500] font-['Space_Grotesk'] uppercase">
+                GOODFELLA
+            </div>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-[#FF4500] font-bold font-['Space_Grotesk'] tracking-tighter uppercase text-sm" href="#">Work</a>
+<a class="text-white/60 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tighter uppercase text-sm" href="#">Services</a>
+<a class="text-white/60 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tighter uppercase text-sm" href="#">About</a>
+<a class="text-white/60 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tighter uppercase text-sm" href="#">Contact</a>
+</div>
+<button class="bg-tertiary-container text-on-tertiary-container px-6 py-2 text-xs font-label uppercase tracking-widest font-bold hover:scale-105 active:scale-95 transition-all duration-300">
+                Get Started
+            </button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col justify-center px-8 pt-32 pb-24 overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+<div class="w-full h-full bg-gradient-to-l from-tertiary-container/20 to-transparent"></div>
+</div>
+<div class="max-w-[1400px] mx-auto w-full relative z-10">
+<p class="font-label text-tertiary-container text-sm tracking-[0.3em] uppercase mb-8">Creative Production Agency</p>
+<h1 class="font-headline text-[clamp(3.5rem,12vw,10rem)] leading-[0.85] font-black tracking-tighter uppercase mb-12">
+                    WE MAKE<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-tertiary-container to-on-primary-fixed-variant">SH*T REAL.</span>
+</h1>
+<div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
+<p class="max-w-xl text-xl text-on-surface-variant font-light leading-relaxed">
+                        An editorial-first production studio crafting high-end digital experiences for brands that refuse to blend into the noise.
+                    </p>
+<div class="flex items-center gap-4 group cursor-pointer">
+<span class="font-label text-xs uppercase tracking-widest border-b border-tertiary-container/30 pb-1 group-hover:border-tertiary-container transition-all">Explore the studio</span>
+<div class="w-10 h-10 rounded-full border border-outline/20 flex items-center justify-center group-hover:bg-tertiary-container group-hover:border-tertiary-container transition-all">
+<span class="material-symbols-outlined text-sm group-hover:text-on-tertiary">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Anchor Text -->
+<div class="absolute bottom-12 left-8 hidden lg:block">
+<div class="flex items-center gap-8 font-label text-[10px] text-white/30 tracking-[0.5em] uppercase vertical-text transform -rotate-90 origin-left translate-y-full">
+<span>Est. 2024</span>
+<span>/</span>
+<span>Production Excellence</span>
+</div>
+</div>
+</section>
+<!-- Featured Work - Bento Grid -->
+<section class="px-8 py-24 bg-surface-container-low">
+<div class="max-w-[1400px] mx-auto">
+<div class="flex justify-between items-end mb-16">
+<h2 class="font-headline text-5xl font-black tracking-tighter uppercase">Selected<br/>Output</h2>
+<p class="font-label text-xs text-white/40 uppercase tracking-widest max-w-[200px] text-right">Showcasing our latest architectural digital movements.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<!-- Project 1 -->
+<div class="md:col-span-8 group relative aspect-[16/9] overflow-hidden bg-surface-container-highest">
+<img alt="Brutalist Architecture" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Modern brutalist concrete building with sharp angles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqHTCRhUflL3XG1a2q_UFG5I_sD0rVhMWDK9DnuXKDhoG5TSAkbF5qx6ZJPWdGFahCVJ71GwYQbVzPyA30GdoHSSP9a9gBBwHaurXb-269wBBS3EHQGi6GBMB2xwLzNeGLcTd8AfZmX0RHUjKQ8a2hRWsNcLVF_oDVOgzNKthK5fpIr2vYB0132OqpB85jcglt0WCIJzPWj4MZGTuRn81w_zoS-Sgrkwcv0fIuLWF_u3o-2H8gRaE7MAaGHsKMjZ9mQhOHGNTDFVS-"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-8 left-8">
+<p class="font-label text-xs text-tertiary-container uppercase tracking-widest mb-2">01 / Fashion Film</p>
+<h3 class="font-headline text-3xl font-bold tracking-tight uppercase">The Monolith Collective</h3>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="md:col-span-4 group relative aspect-square md:aspect-auto overflow-hidden bg-surface-container-highest">
+<img alt="Technical Detail" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Abstract metallic architectural detail in high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW27LXGGkX9GMW04NN4el321e0CV_Z68AA3fQLGZYsPE44zHOvLCReuWCRFCL7OiRaB95KL_ukFfFa5iTQxWtClL1FmZITKkezq1ZJmk18wJ9Xs8Du4Db0dwHtovSCnsKn_7B2H32nxH4-qinx9_LcEicU4miCw8oso9XIb7TQF1nNV_LcLzzjIAMSbuO4b2JM1Zvp1NK8M6zkdQEapHUMLRJ_tygmn3eP4IxmNMKl8ARQWPWLnTirGgoTNf5n6w78cciFqgkMTDT5"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-8 left-8">
+<p class="font-label text-xs text-tertiary-container uppercase tracking-widest mb-2">02 / Branding</p>
+<h3 class="font-headline text-3xl font-bold tracking-tight uppercase">Void Systems</h3>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="md:col-span-4 group relative aspect-square md:aspect-auto overflow-hidden bg-surface-container-highest">
+<img alt="Tech Retro" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Close up of retro electronic equipment and cables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpOYuong6mQsQnV1Cqsm3Ir09g9KNiEPo1KHmbQWay8xmLBnlPeg0886-aHj5D404dYcFY_eB-hDpleCJ3OFkJz8R4akfRGhMT8ttdw2sqsYQbTCzhKH_aLD_bb4ZDm1gJC5RXMJ_fVMfT378R_UUcZqBmoBHuXQvw3UlEnQdiSmj__Hx4DE8GyNUbtrIyf3zPgaNqLg0qxCXrRRKWkZq-mtUn6mmm6hpt7t7Os_nCKo3Mou0mmcaeMQeuquWwxc_0_5VzteRvWNkY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-8 left-8">
+<p class="font-label text-xs text-tertiary-container uppercase tracking-widest mb-2">03 / Web Design</p>
+<h3 class="font-headline text-3xl font-bold tracking-tight uppercase">Cyber Archives</h3>
+</div>
+</div>
+<!-- Project 4 -->
+<div class="md:col-span-8 group relative aspect-[16/9] overflow-hidden bg-surface-container-highest">
+<img alt="Urban Geometry" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Low angle shot of skyscraper with glass reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdb2HAFcJdTojNJ08o69VGAxOq1OrdDnMLg2aTcH5YMt3zh3ntHTT61xTuayNc_kqnmoe6-BKZ2rso386supbcNORzocBpcu3tlTCAmBkeLe8kRNhSy0vEBoQPxS6s0Zsst33Uhxmji0z7JREfav-7EDURXL3lhA4bDTPGHT1IMmdW6kdv7hnnR-WxNJdZfqyQboh2TYxDYnY6YMx18fpyShb-u8j-AMCCsfyf9b9kOUyKHYTOsyRnF3qwULx3EWxpIBph1Br2YECp"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-8 left-8">
+<p class="font-label text-xs text-tertiary-container uppercase tracking-widest mb-2">04 / Campaign</p>
+<h3 class="font-headline text-3xl font-bold tracking-tight uppercase">Urban Pulse 24</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="px-8 py-32 bg-surface">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24">
+<div>
+<h2 class="font-headline text-6xl font-black tracking-tighter uppercase sticky top-32">Capabilities<br/>Defined.</h2>
+</div>
+<div class="space-y-24">
+<div class="border-l-2 border-tertiary-container pl-12">
+<p class="font-label text-xs text-tertiary-container tracking-widest uppercase mb-4">Service 01</p>
+<h4 class="font-headline text-3xl font-bold uppercase mb-6">Visual Identity &amp; Direction</h4>
+<p class="text-on-surface-variant leading-relaxed text-lg">We define the aesthetic core of your brand. Creating visual languages that speak through typography, motion, and editorial composition.</p>
+</div>
+<div class="border-l-2 border-outline-variant/30 pl-12 hover:border-tertiary-container transition-colors">
+<p class="font-label text-xs text-white/40 tracking-widest uppercase mb-4">Service 02</p>
+<h4 class="font-headline text-3xl font-bold uppercase mb-6">Cinematic Production</h4>
+<p class="text-on-surface-variant leading-relaxed text-lg">High-end video content and motion graphics that demand attention. From 15-second social bursts to full-scale campaign films.</p>
+</div>
+<div class="border-l-2 border-outline-variant/30 pl-12 hover:border-tertiary-container transition-colors">
+<p class="font-label text-xs text-white/40 tracking-widest uppercase mb-4">Service 03</p>
+<h4 class="font-headline text-3xl font-bold uppercase mb-6">Digital Experience</h4>
+<p class="text-on-surface-variant leading-relaxed text-lg">Architecting immersive digital environments. We build platforms that feel like physical spaces, prioritizing rhythm and discovery.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Quote Component -->
+<section class="px-8 py-24 bg-surface-container-lowest">
+<div class="max-w-[1000px] mx-auto">
+<div class="relative py-12">
+<div class="absolute top-0 left-0 w-16 h-1 bg-tertiary-container"></div>
+<blockquote class="font-headline text-4xl md:text-6xl font-light italic leading-tight text-on-surface tracking-tight">
+                        "Design is not just what it looks like and feels like. Design is how it <span class="text-tertiary-container font-black not-italic">commands</span> the room."
+                    </blockquote>
+<cite class="block mt-12 font-label text-sm uppercase tracking-widest text-white/40">— The Editorial Manifesto</cite>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-24 px-8 mt-24 bg-[#1C1B1C]">
+<div class="max-w-[1920px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12 w-full">
+<div class="flex flex-col gap-8 max-w-md">
+<div class="text-lg font-bold text-white font-['Space_Grotesk'] uppercase tracking-tighter">GOODFELLA</div>
+<p class="text-white/40 font-['GeistMono'] text-sm leading-relaxed uppercase">
+                    A global studio focused on the intersection of brutalist architecture and technical production. We build monoliths.
+                </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-24">
+<div class="flex flex-col gap-4">
+<span class="text-[#FF4500] font-['GeistMono'] text-xs uppercase tracking-widest mb-2">Connect</span>
+<a class="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest" href="#">Instagram</a>
+<a class="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest" href="#">LinkedIn</a>
+<a class="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest" href="#">Twitter</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="text-[#FF4500] font-['GeistMono'] text-xs uppercase tracking-widest mb-2">Legal</span>
+<a class="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest" href="#">Privacy</a>
+<a class="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest" href="#">Terms</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1920px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-8">
+<div class="font-['GeistMono'] text-[10px] text-white/20 uppercase tracking-[0.3em]">
+                © 2024 GOODFELLA. ALL RIGHTS RESERVED.
+            </div>
+<div class="font-['GeistMono'] text-[10px] text-white/20 uppercase tracking-[0.3em]">
+                CRAFTED IN THE VOID
+            </div>
+</div>
+</footer>
+</body></html>

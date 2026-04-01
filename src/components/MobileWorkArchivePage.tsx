@@ -1,15 +1,3 @@
-import foto3 from "../foto 3.jpeg";
-import foto5 from "../foto 5.jpeg";
-import foto6 from "../foto 6.jpeg";
-import foto9 from "../foto 9.jpeg";
-import foto10 from "../foto 10.jpeg";
-import foto11 from "../foto 11.jpeg";
-import foto13 from "../foto 13.jpeg";
-import foto14 from "../foto 14.jpeg";
-import foto15 from "../foto 15.jpeg";
-import foto16 from "../foto 16.jpeg";
-import foto17 from "../foto 17.jpeg";
-
 type MobileEditorialItem = {
   category: string;
   description: string;
@@ -19,19 +7,21 @@ type MobileEditorialItem = {
   title: string;
 };
 
+const withMobileTransform = (url: string) => url.replace("/image/upload/", "/image/upload/c_limit,w_900,dpr_auto/");
+
 const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
-    category: "DIREÇÃO / AUTORAL",
-    description: "Projeto orientado por gesto limpo e contraste delicado, com leitura segura em diferentes distâncias.",
-    image: foto3,
-    label: "03 / TRABALHO",
+    category: "ARQUIVO / ASSINATURA",
+    description: "Projeto de assinatura autoral com equilíbrio entre presença gráfica e acabamento limpo de leitura imediata.",
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775068120/foto_18_xfp53k.jpg"),
+    label: "18 / TRABALHO",
     objectPosition: "center 32%",
-    title: "Arquivo 03",
+    title: "Arquivo 18",
   },
   {
     category: "ORNAMENTAL / FINE LINE",
     description: "Composição de linhas contínuas e pausas visuais para preservar fluidez e sofisticação no resultado final.",
-    image: foto5,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067062/foto_5_ufz5z2.jpg"),
     label: "05 / TRABALHO",
     objectPosition: "center 36%",
     title: "Arquivo 05",
@@ -39,7 +29,7 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "BOTÂNICO / PRETO",
     description: "Estrutura vegetal com volume controlado, desenhada para manter impacto sem perder leveza editorial.",
-    image: foto6,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067071/foto_6_ylpzs4.jpg"),
     label: "06 / TRABALHO",
     objectPosition: "center 28%",
     title: "Arquivo 06",
@@ -47,23 +37,15 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "GRÁFICO / CONTORNO",
     description: "Recorte preciso entre linhas e áreas de sombra, criando presença marcante com acabamento silencioso.",
-    image: foto9,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067099/foto_9_jhcaj0.jpg"),
     label: "09 / TRABALHO",
     objectPosition: "center 52%",
     title: "Arquivo 09",
   },
   {
-    category: "NARRATIVO / AUTORAL",
-    description: "Peça conduzida por narrativa visual contínua, equilibrando densidade e respiro no mesmo campo.",
-    image: foto10,
-    label: "10 / TRABALHO",
-    objectPosition: "center 30%",
-    title: "Arquivo 10",
-  },
-  {
     category: "TEXTURA / BLACKWORK",
     description: "Volume de preto aplicado com controle de textura para manter nitidez gráfica e assinatura contemporânea.",
-    image: foto11,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067115/foto_11_sw2ico.jpg"),
     label: "11 / TRABALHO",
     objectPosition: "center 42%",
     title: "Arquivo 11",
@@ -71,7 +53,7 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "EDITORIAL / FLUIDO",
     description: "Direção visual com linhas alongadas e ritmo orgânico, pensada para valorizar movimento natural do corpo.",
-    image: foto13,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067135/foto_13_vypyae.jpg"),
     label: "13 / TRABALHO",
     objectPosition: "center 44%",
     title: "Arquivo 13",
@@ -79,7 +61,7 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "AUTORAL / MINIMAL",
     description: "Projeto de presença discreta e precisa, com desenho enxuto e contraste refinado de longa duração.",
-    image: foto14,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067143/foto_14_gshnky.jpg"),
     label: "14 / TRABALHO",
     objectPosition: "center 35%",
     title: "Arquivo 14",
@@ -87,7 +69,7 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "FINE LINE / BOTÂNICO",
     description: "Construção leve com microdetalhes calibrados para leitura elegante em close e em visão ampla.",
-    image: foto15,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067152/foto_15_ortfw7.jpg"),
     label: "15 / TRABALHO",
     objectPosition: "center 38%",
     title: "Arquivo 15",
@@ -95,18 +77,10 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "COMPOSIÇÃO / EDITORIAL",
     description: "Recorte visual de alto equilíbrio entre forma e vazio, reforçando clareza e assinatura visual.",
-    image: foto16,
+    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067159/foto_16_qf4fwu.jpg"),
     label: "16 / TRABALHO",
     objectPosition: "center 46%",
     title: "Arquivo 16",
-  },
-  {
-    category: "ARQUIVO / ASSINATURA",
-    description: "Síntese de direção autoral com acabamento limpo, proposta para manter impacto com sofisticação contínua.",
-    image: foto17,
-    label: "17 / TRABALHO",
-    objectPosition: "center 34%",
-    title: "Arquivo 17",
   },
 ];
 
@@ -141,6 +115,9 @@ function MobileWorkArchivePage() {
                 <img
                   alt={item.title}
                   className="h-full w-full object-cover transition-transform duration-700 ease-out"
+                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  loading={index === 0 ? "eager" : "lazy"}
                   src={item.image}
                   style={{ objectPosition: item.objectPosition }}
                 />

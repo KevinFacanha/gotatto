@@ -13,6 +13,7 @@ import foto14 from "../foto 14.jpeg";
 import foto15 from "../foto 15.jpeg";
 import foto16 from "../foto 16.jpeg";
 import foto17 from "../foto 17.jpeg";
+import { getCloudinaryImageSources } from "../lib/cloudinaryImage";
 
 const WORK_IMAGES = [foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12, foto13, foto14, foto15, foto16, foto17];
 const WIDTH_PATTERN = [
@@ -58,7 +59,7 @@ const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "BLACKWORK / FLORAL",
     description: "Composição em fluxo orgânico, construída para manter leitura elegante em movimento e presença precisa no close.",
-    image: foto4,
+    image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067044/foto_4_k1gca4.jpg",
     label: "04 / TRABALHO",
     objectPosition: "center 46%",
     title: "Arquivo 04",
@@ -66,7 +67,7 @@ const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "FINE LINE / ORNAMENTAL",
     description: "Direção de contraste controlado entre delicadeza e estrutura, com acabamento limpo e ritmo visual contínuo.",
-    image: foto7,
+    image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067081/foto_7_ia0z5e.jpg",
     label: "07 / TRABALHO",
     objectPosition: "center 44%",
     title: "Arquivo 07",
@@ -74,7 +75,7 @@ const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "BOTANICAL / AUTORAL",
     description: "Peça desenhada para valorizar profundidade e silêncio visual, preservando personalidade sem excesso gráfico.",
-    image: foto12,
+    image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067123/foto_12_kylf5l.jpg",
     label: "12 / TRABALHO",
     objectPosition: "center 35%",
     title: "Arquivo 12",
@@ -82,7 +83,7 @@ const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
   {
     category: "EDITORIAL / MINIMAL",
     description: "Projeto com eixo tipográfico e gesto preciso, equilibrando impacto imediato com sofisticação atemporal.",
-    image: foto8,
+    image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067091/foto_8_wqybcz.jpg",
     label: "08 / TRABALHO",
     objectPosition: "center 30%",
     title: "Arquivo 08",
@@ -370,9 +371,15 @@ function FeaturedWorkSection() {
     >
       <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
         <img
+          {...getCloudinaryImageSources(item.image, {
+            sizes: "(min-width: 640px) 36rem, calc(100vw - 4rem)",
+            widths: [320, 440, 620, 820, 1040],
+          })}
           alt={item.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out"
-          src={item.image}
+          decoding="async"
+          fetchPriority={index === 0 ? "high" : "auto"}
+          loading={index === 0 ? "eager" : "lazy"}
           style={{ objectPosition: item.objectPosition }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/72 via-transparent to-surface/38" />
@@ -461,10 +468,15 @@ function FeaturedWorkSection() {
                 }}
               >
                 <img
+                  {...getCloudinaryImageSources(item.image, {
+                    sizes: "(min-width: 1280px) 30rem, (min-width: 1024px) 24rem, (min-width: 640px) 64vw, 76vw",
+                    widths: [420, 620, 840, 1120, 1440],
+                  })}
                   alt={item.title}
                   className="trabalhos-collage-media h-full w-full object-cover opacity-[0.9]"
+                  decoding="async"
                   draggable={false}
-                  src={item.image}
+                  loading={index < 2 ? "eager" : "lazy"}
                   style={{ objectPosition: item.objectPosition }}
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/95 via-surface/30 to-transparent" />

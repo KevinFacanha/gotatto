@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+
 type MobileEditorialItem = {
   category: string;
   description: string;
@@ -8,6 +10,8 @@ type MobileEditorialItem = {
 };
 
 const withMobileTransform = (url: string) => url.replace("/image/upload/", "/image/upload/c_limit,w_900,dpr_auto/");
+const INITIAL_VISIBLE_ITEMS = 1;
+const LOAD_STEP = 2;
 
 const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
@@ -85,6 +89,48 @@ const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
 ];
 
 function MobileWorkArchivePage() {
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_ITEMS);
+  const [loadedIndexes, setLoadedIndexes] = useState<Set<number>>(new Set());
+  const loadMoreTriggerRef = useRef<HTMLDivElement>(null);
+
+  const visibleItems = useMemo(() => MOBILE_ARCHIVE_WORK_ITEMS.slice(0, visibleCount), [visibleCount]);
+  const hasMoreItems = visibleCount < MOBILE_ARCHIVE_WORK_ITEMS.length;
+
+  useEffect(() => {
+    const trigger = loadMoreTriggerRef.current;
+    if (!trigger || !hasMoreItems) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        setVisibleCount((current) => Math.min(current + LOAD_STEP, MOBILE_ARCHIVE_WORK_ITEMS.length));
+      },
+      { rootMargin: "300px 0px 300px 0px", threshold: 0.01 },
+    );
+
+    observer.observe(trigger);
+    return () => observer.disconnect();
+  }, [hasMoreItems]);
+
+  const markImageLoaded = (index: number) => {
+    setLoadedIndexes((current) => {
+      if (current.has(index)) {
+        return current;
+      }
+
+      const next = new Set(current);
+      next.add(index);
+      return next;
+    });
+  };
+
+  const skeletonCount = hasMoreItems ? Math.min(LOAD_STEP, MOBILE_ARCHIVE_WORK_ITEMS.length - visibleCount) : 0;
+
   return (
     <section className="relative overflow-hidden bg-surface-container-low px-8 py-24 lg:hidden">
       <div className="mx-auto max-w-[1500px]">
@@ -105,19 +151,22 @@ function MobileWorkArchivePage() {
         </div>
 
         <div className="grid grid-cols-1 gap-10">
-          {MOBILE_ARCHIVE_WORK_ITEMS.map((item, index) => (
+          {visibleItems.map((item, index) => (
             <figure
               key={`${item.label}-${item.title}`}
               className={`overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${index % 2 === 0 ? "reveal-delay-1" : "reveal-delay-2"}`}
               data-reveal
             >
               <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
+                {!loadedIndexes.has(index) && <div className="absolute inset-0 animate-pulse bg-outline-variant/20" />}
                 <img
                   alt={item.title}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out"
+                  className={`h-full w-full object-cover transition-opacity duration-500 ease-out ${loadedIndexes.has(index) ? "opacity-100" : "opacity-0"}`}
                   decoding="async"
                   fetchPriority={index === 0 ? "high" : "auto"}
                   loading={index === 0 ? "eager" : "lazy"}
+                  onError={() => markImageLoaded(index)}
+                  onLoad={() => markImageLoaded(index)}
                   src={item.image}
                   style={{ objectPosition: item.objectPosition }}
                 />
@@ -132,7 +181,25 @@ function MobileWorkArchivePage() {
               </figcaption>
             </figure>
           ))}
+
+          {Array.from({ length: skeletonCount }).map((_, skeletonIndex) => (
+            <figure
+              key={`skeleton-${visibleCount + skeletonIndex}`}
+              className={`overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${skeletonIndex % 2 === 0 ? "reveal-delay-1" : "reveal-delay-2"}`}
+              data-reveal
+            >
+              <div className="relative aspect-[4/5] w-full animate-pulse bg-outline-variant/20 sm:aspect-[16/10]" />
+              <figcaption className="border-t border-outline-variant/60 px-5 py-6 sm:px-6">
+                <div className="h-2 w-32 animate-pulse bg-outline-variant/25" />
+                <div className="mt-3 h-7 w-44 animate-pulse bg-outline-variant/25" />
+                <div className="mt-3 h-2 w-full animate-pulse bg-outline-variant/25" />
+                <div className="mt-2 h-2 w-5/6 animate-pulse bg-outline-variant/25" />
+              </figcaption>
+            </figure>
+          ))}
         </div>
+
+        {hasMoreItems && <div ref={loadMoreTriggerRef} className="h-1 w-full" />}
 
         <div className="mt-10 flex justify-center" data-reveal>
           <a

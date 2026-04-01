@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import heroVideo from "../video1.mp4";
 import BrandSymbol from "./BrandSymbol";
 
-const MOBILE_HERO_VIDEO_URL = "https://res.cloudinary.com/dy36sfdb3/video/upload/q_auto/f_auto/v1775067181/video1_wxd8cx.mp4";
-
 function HeroSection() {
   const videoFrameRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -86,10 +84,8 @@ function HeroSection() {
             playsInline
             preload="auto"
             ref={videoRef}
-          >
-            <source media="(max-width: 767px)" src={MOBILE_HERO_VIDEO_URL} type="video/mp4" />
-            <source src={heroVideo} type="video/mp4" />
-          </video>
+            src={heroVideo}
+          />
           <div className="absolute inset-0 bg-surface/58" />
           <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/62 to-surface/88" />
           <div className="absolute inset-0 bg-gradient-to-t from-surface/88 via-transparent to-surface/74" />

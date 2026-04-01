@@ -45,6 +45,50 @@ const WORK_ITEMS = WORK_IMAGES.map((image, index) => {
   };
 });
 
+type MobileEditorialItem = {
+  category: string;
+  description: string;
+  image: string;
+  label: string;
+  objectPosition: string;
+  title: string;
+};
+
+const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
+  {
+    category: "BLACKWORK / FLORAL",
+    description: "Composição em fluxo orgânico, construída para manter leitura elegante em movimento e presença precisa no close.",
+    image: foto4,
+    label: "04 / TRABALHO",
+    objectPosition: "center 46%",
+    title: "Arquivo 04",
+  },
+  {
+    category: "FINE LINE / ORNAMENTAL",
+    description: "Direção de contraste controlado entre delicadeza e estrutura, com acabamento limpo e ritmo visual contínuo.",
+    image: foto7,
+    label: "07 / TRABALHO",
+    objectPosition: "center 44%",
+    title: "Arquivo 07",
+  },
+  {
+    category: "BOTANICAL / AUTORAL",
+    description: "Peça desenhada para valorizar profundidade e silêncio visual, preservando personalidade sem excesso gráfico.",
+    image: foto12,
+    label: "12 / TRABALHO",
+    objectPosition: "center 35%",
+    title: "Arquivo 12",
+  },
+  {
+    category: "EDITORIAL / MINIMAL",
+    description: "Projeto com eixo tipográfico e gesto preciso, equilibrando impacto imediato com sofisticação atemporal.",
+    image: foto8,
+    label: "08 / TRABALHO",
+    objectPosition: "center 30%",
+    title: "Arquivo 08",
+  },
+];
+
 type DragState = {
   isDragging: boolean;
   pointerId: number | null;
@@ -318,21 +362,64 @@ function FeaturedWorkSection() {
     };
   }, []);
 
+  const renderMobileEditorialItem = (item: MobileEditorialItem, index: number) => (
+    <figure
+      key={`${item.label}-${item.title}`}
+      className={`overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${index % 2 === 0 ? "reveal-delay-1" : "reveal-delay-2"}`}
+      data-reveal
+    >
+      <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
+        <img
+          alt={item.title}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out"
+          src={item.image}
+          style={{ objectPosition: item.objectPosition }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/72 via-transparent to-surface/38" />
+      </div>
+      <figcaption className="border-t border-outline-variant/60 px-5 py-6 sm:px-6">
+        <p className="font-label text-[10px] uppercase tracking-[0.24em] text-tertiary-container">
+          {item.label} / {item.category}
+        </p>
+        <h3 className="mt-3 font-headline text-[clamp(1.35rem,6vw,2rem)] font-black uppercase tracking-[0.04em] text-on-surface">{item.title}</h3>
+        <p className="mt-3 max-w-[38ch] text-pretty text-[0.98rem] leading-relaxed text-on-surface-variant">{item.description}</p>
+      </figcaption>
+    </figure>
+  );
+
   return (
     <section className="relative overflow-hidden bg-surface-container-low px-8 py-24">
       <div className="mx-auto max-w-[1500px]">
-        <div className="mb-9 grid grid-cols-1 gap-8 md:mb-10 lg:grid-cols-12 lg:items-end lg:gap-10" data-reveal>
+        <div className="lg:hidden">
+          <div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center" data-reveal>
+            <p className="font-label text-[10px] font-medium uppercase tracking-[0.32em] text-tertiary-container">TRABALHOS</p>
+            <h2 className="mt-5 font-headline text-[clamp(2rem,5.5vw,4.45rem)] font-black uppercase leading-[0.92] tracking-[0.08em] text-on-surface">
+              Arquivo Vivo
+              <br />
+              Trabalhos GOTA
+            </h2>
+            <span aria-hidden="true" className="mt-8 h-16 w-px bg-outline-variant/70" />
+          </div>
+
+          <div className="grid grid-cols-1 gap-10">{MOBILE_HOME_WORK_ITEMS.map(renderMobileEditorialItem)}</div>
+
+          <div className="mt-10 flex justify-center" data-reveal>
+            <a
+              className="inline-flex items-center justify-center border border-outline-variant/70 px-6 py-3 font-label text-[10px] uppercase tracking-[0.24em] text-on-surface transition-colors duration-500 hover:border-tertiary-container hover:text-tertiary-container"
+              href="#/trabalhos/arquivo"
+            >
+              Saiba Mais
+            </a>
+          </div>
+        </div>
+
+        <div className="mb-9 hidden gap-8 md:mb-10 lg:grid lg:grid-cols-12 lg:items-end lg:gap-10" data-reveal>
           <div className="lg:col-span-4">
             <p className="font-label text-[11px] uppercase tracking-[0.24em] text-tertiary-container">Trabalhos</p>
             <p className="mt-6 max-w-[30rem] text-sm leading-relaxed text-on-surface-variant">
               Sequência editorial em arrasto lateral, com recortes visuais e ritmo de composição para leitura imersiva.
             </p>
             <div aria-hidden="true" className="mt-6 h-px w-full max-w-[24rem] bg-outline-variant/45" />
-            <h2 className="mt-6 font-headline text-[clamp(2.2rem,8vw,4rem)] font-black uppercase leading-[0.86] tracking-[0.02em] text-on-surface lg:hidden">
-              Arquivo Vivo
-              <br />
-              Trabalhos GOTA
-            </h2>
           </div>
           <h2 className="hidden text-right font-headline text-[clamp(2.2rem,6.2vw,5.2rem)] font-black uppercase leading-[0.86] tracking-[0.01em] text-on-surface lg:col-span-8 lg:block">
             Arquivo Vivo
@@ -343,7 +430,7 @@ function FeaturedWorkSection() {
           </h2>
         </div>
 
-        <div className="relative reveal-delay-1" data-reveal>
+        <div className="relative hidden reveal-delay-1 lg:block" data-reveal>
           <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-8 bg-gradient-to-r from-surface-container-low to-transparent md:w-16" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-8 bg-gradient-to-l from-surface-container-low to-transparent md:w-16" />
 

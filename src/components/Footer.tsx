@@ -1,3 +1,6 @@
+const INSTAGRAM_URL = "https://www.instagram.com/gotattooink/";
+const WHATSAPP_URL = "https://wa.me/5511942521850";
+
 function Footer() {
   return (
     <footer className="w-full py-24 px-8 mt-24 bg-[#1C1B1C]">
@@ -13,13 +16,17 @@ function Footer() {
             <span className="text-[#FF4500] font-['GeistMono'] text-xs uppercase tracking-widest mb-2">Contato</span>
             <a
               className="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest"
-              href="#"
+              href={INSTAGRAM_URL}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Instagram
             </a>
             <a
               className="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest"
-              href="#"
+              href={WHATSAPP_URL}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               WhatsApp
             </a>
@@ -34,7 +41,7 @@ function Footer() {
             <span className="text-[#FF4500] font-['GeistMono'] text-xs uppercase tracking-widest mb-2">Estúdio</span>
             <a
               className="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest"
-              href="#"
+              href="https://wa.me/5511942521850?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20tattoo"
             >
               Agendamento
             </a>

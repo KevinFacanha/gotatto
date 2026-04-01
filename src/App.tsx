@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AboutSection from "./components/AboutSection";
 import Footer from "./components/Footer";
 import FeaturedWorkSection from "./components/FeaturedWorkSection";
 import HeroSection from "./components/HeroSection";
+import MobileWorkArchivePage from "./components/MobileWorkArchivePage";
 import Navbar from "./components/Navbar";
 import QuoteSection from "./components/QuoteSection";
 import ServicesSection from "./components/ServicesSection";
@@ -13,11 +14,15 @@ const LOADER_TOTAL_MS = 5000;
 const LOADER_HOLD_MS = 180;
 const LOADER_FADE_MS = 620;
 const LOADER_PROGRESS_MS = LOADER_TOTAL_MS - LOADER_HOLD_MS - LOADER_FADE_MS;
+const MOBILE_ARCHIVE_ROUTE = "/trabalhos/arquivo";
 
 function App() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [isLoaderExiting, setIsLoaderExiting] = useState(false);
+  const [hashRoute, setHashRoute] = useState(() => window.location.hash.replace(/^#/, "") || "/");
+  const [isMobileViewport, setIsMobileViewport] = useState(() => window.matchMedia("(max-width: 1023px)").matches);
+  const previousHashRouteRef = useRef(hashRoute);
 
   useEditorialMotion();
 
@@ -79,6 +84,58 @@ function App() {
     };
   }, [isLoaderVisible]);
 
+  useEffect(() => {
+    const onHashChange = () => {
+      setHashRoute(window.location.hash.replace(/^#/, "") || "/");
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1023px)");
+    const onViewportChange = (event: MediaQueryListEvent) => {
+      setIsMobileViewport(event.matches);
+    };
+
+    setIsMobileViewport(mediaQuery.matches);
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", onViewportChange);
+    } else {
+      mediaQuery.addListener(onViewportChange);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", onViewportChange);
+      } else {
+        mediaQuery.removeListener(onViewportChange);
+      }
+    };
+  }, []);
+
+  const isMobileArchiveRoute = isMobileViewport && hashRoute === MOBILE_ARCHIVE_ROUTE;
+
+  useEffect(() => {
+    if (!isMobileArchiveRoute) {
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [isMobileArchiveRoute]);
+
+  useEffect(() => {
+    const previousHashRoute = previousHashRouteRef.current;
+    const isReturningFromMobileArchive = previousHashRoute === MOBILE_ARCHIVE_ROUTE && hashRoute === "/";
+
+    if (isReturningFromMobileArchive) {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+
+    previousHashRouteRef.current = hashRoute;
+  }, [hashRoute]);
+
   return (
     <>
       {isLoaderVisible && (
@@ -101,25 +158,33 @@ function App() {
           </div>
         </div>
       )}
-      <Navbar />
-      <main>
-        <div id="hero" className="scroll-mt-28">
-          <HeroSection />
-        </div>
-        <AboutSection />
-        <div id="trabalhos" className="scroll-mt-28">
-          <FeaturedWorkSection />
-        </div>
-        <div id="servicos" className="scroll-mt-28">
-          <ServicesSection />
-        </div>
-        <div id="manifesto" className="scroll-mt-28">
-          <QuoteSection />
-        </div>
-      </main>
-      <div id="contato" className="scroll-mt-28">
-        <Footer />
-      </div>
+      {!isMobileArchiveRoute && <Navbar />}
+      {isMobileArchiveRoute ? (
+        <main>
+          <MobileWorkArchivePage />
+        </main>
+      ) : (
+        <>
+          <main>
+            <div id="hero" className="scroll-mt-28">
+              <HeroSection />
+            </div>
+            <AboutSection />
+            <div id="trabalhos" className="scroll-mt-28">
+              <FeaturedWorkSection />
+            </div>
+            <div id="servicos" className="scroll-mt-28">
+              <ServicesSection />
+            </div>
+            <div id="manifesto" className="scroll-mt-28">
+              <QuoteSection />
+            </div>
+          </main>
+          <div id="contato" className="scroll-mt-28">
+            <Footer />
+          </div>
+        </>
+      )}
     </>
   );
 }

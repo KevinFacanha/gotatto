@@ -2,6 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import BrandSymbol from "./BrandSymbol";
 import useScrambleText from "../hooks/useScrambleText";
 
+const INSTAGRAM_URL = "https://www.instagram.com/gotattooink/";
+const WHATSAPP_URL = "https://wa.me/5511942521850";
+
 type ScrambleLabelProps = {
   baseText: string;
   displayText: string;
@@ -31,9 +34,9 @@ function Navbar() {
   );
   const secondaryItems = useMemo(
     () => [
-      { label: "Instagram", href: "#" },
-      { label: "WhatsApp", href: "#" },
-      { label: "E-mail", href: "#" },
+      { isExternal: true, label: "Instagram", href: INSTAGRAM_URL },
+      { isExternal: true, label: "WhatsApp", href: WHATSAPP_URL },
+      { isExternal: false, label: "E-mail", href: "#" },
     ],
     [],
   );
@@ -179,8 +182,12 @@ function Navbar() {
                   key={item.label}
                   className="font-label text-xs uppercase tracking-[0.24em] text-on-surface-variant/80 transition-opacity duration-300 hover:opacity-100"
                   href={item.href}
+                  rel={item.isExternal ? "noopener noreferrer" : undefined}
+                  target={item.isExternal ? "_blank" : undefined}
                   onClick={(event) => {
-                    event.preventDefault();
+                    if (!item.isExternal) {
+                      event.preventDefault();
+                    }
                     setIsMenuOpen(false);
                   }}
                 >

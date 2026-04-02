@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
-function useEditorialMotion() {
+function useEditorialMotion(restartKey: string) {
   useEffect(() => {
     const revealElements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     const parallaxElements = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
@@ -40,7 +40,18 @@ function useEditorialMotion() {
       { rootMargin: "0px 0px -10% 0px", threshold: 0.16 },
     );
 
-    revealElements.forEach((element) => observer.observe(element));
+    const viewportHeight = window.innerHeight;
+    revealElements.forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      const isInFirstPaintWindow = rect.top < viewportHeight * 0.92 && rect.bottom > 0;
+
+      if (isInFirstPaintWindow) {
+        element.classList.add("is-visible");
+        return;
+      }
+
+      observer.observe(element);
+    });
 
     const parallaxState = parallaxElements.map((element) => ({
       current: 0,
@@ -128,7 +139,7 @@ function useEditorialMotion() {
         window.cancelAnimationFrame(rafId);
       }
     };
-  }, []);
+  }, [restartKey]);
 }
 
 export default useEditorialMotion;

@@ -23,8 +23,9 @@ function App() {
   const [hashRoute, setHashRoute] = useState(() => window.location.hash.replace(/^#/, "") || "/");
   const [isMobileViewport, setIsMobileViewport] = useState(() => window.matchMedia("(max-width: 1023px)").matches);
   const previousHashRouteRef = useRef(hashRoute);
+  const isMobileArchiveRoute = isMobileViewport && hashRoute === MOBILE_ARCHIVE_ROUTE;
 
-  useEditorialMotion();
+  useEditorialMotion(isMobileArchiveRoute ? "mobile-archive-route" : "home-route");
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -115,12 +116,17 @@ function App() {
     };
   }, []);
 
-  const isMobileArchiveRoute = isMobileViewport && hashRoute === MOBILE_ARCHIVE_ROUTE;
-
   const scrollToTopNow = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
+  };
+
+  const resetInteractionLocks = () => {
+    document.body.style.overflow = "";
+    document.body.style.pointerEvents = "";
+    document.documentElement.style.overflow = "";
+    document.documentElement.style.pointerEvents = "";
   };
 
   useEffect(() => {
@@ -131,40 +137,38 @@ function App() {
     // Ensure no visual lock/overlay from home leaks into the mobile archive route.
     setIsLoaderExiting(false);
     setIsLoaderVisible(false);
-    document.body.style.overflow = "";
-    document.body.style.pointerEvents = "";
-    document.documentElement.style.overflow = "";
-    document.documentElement.style.pointerEvents = "";
-
-    document.querySelectorAll<HTMLElement>('[aria-modal="true"][role="dialog"]').forEach((dialog) => {
-      dialog.setAttribute("aria-hidden", "true");
-      dialog.style.opacity = "0";
-      dialog.style.pointerEvents = "none";
-      dialog.style.visibility = "hidden";
-    });
-
-    const loaderOverlay = document.querySelector<HTMLElement>('[role="status"][aria-live="polite"]');
-    if (loaderOverlay) {
-      loaderOverlay.style.opacity = "0";
-      loaderOverlay.style.pointerEvents = "none";
-      loaderOverlay.style.visibility = "hidden";
-    }
+    resetInteractionLocks();
+    window.dispatchEvent(new CustomEvent("gotatto:force-close-overlays"));
 
     scrollToTopNow();
-    window.requestAnimationFrame(scrollToTopNow);
+    const rafId = window.requestAnimationFrame(scrollToTopNow);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+    };
   }, [isMobileArchiveRoute]);
 
   useEffect(() => {
     const previousHashRoute = previousHashRouteRef.current;
-    const isReturningFromMobileArchive = previousHashRoute === MOBILE_ARCHIVE_ROUTE && hashRoute === "/";
+    const isReturningFromMobileArchive = isMobileViewport && previousHashRoute === MOBILE_ARCHIVE_ROUTE && hashRoute === "/";
 
     if (isReturningFromMobileArchive) {
+      resetInteractionLocks();
+      window.dispatchEvent(new CustomEvent("gotatto:force-close-overlays"));
       scrollToTopNow();
-      window.requestAnimationFrame(scrollToTopNow);
+
+      window.requestAnimationFrame(() => {
+        scrollToTopNow();
+        window.requestAnimationFrame(() => {
+          document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => {
+            element.classList.add("is-visible");
+          });
+        });
+      });
     }
 
     previousHashRouteRef.current = hashRoute;
-  }, [hashRoute]);
+  }, [hashRoute, isMobileViewport]);
 
   return (
     <>

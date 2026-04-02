@@ -55,6 +55,15 @@ function Navbar() {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    const onForceClose = () => {
+      setIsMenuOpen(false);
+    };
+
+    window.addEventListener("gotatto:force-close-overlays", onForceClose);
+    return () => window.removeEventListener("gotatto:force-close-overlays", onForceClose);
+  }, []);
+
+  useEffect(() => {
     if (!isMenuOpen) {
       return;
     }

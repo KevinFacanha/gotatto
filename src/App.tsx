@@ -117,12 +117,41 @@ function App() {
 
   const isMobileArchiveRoute = isMobileViewport && hashRoute === MOBILE_ARCHIVE_ROUTE;
 
+  const scrollToTopNow = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+
   useEffect(() => {
     if (!isMobileArchiveRoute) {
       return;
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    // Ensure no visual lock/overlay from home leaks into the mobile archive route.
+    setIsLoaderExiting(false);
+    setIsLoaderVisible(false);
+    document.body.style.overflow = "";
+    document.body.style.pointerEvents = "";
+    document.documentElement.style.overflow = "";
+    document.documentElement.style.pointerEvents = "";
+
+    document.querySelectorAll<HTMLElement>('[aria-modal="true"][role="dialog"]').forEach((dialog) => {
+      dialog.setAttribute("aria-hidden", "true");
+      dialog.style.opacity = "0";
+      dialog.style.pointerEvents = "none";
+      dialog.style.visibility = "hidden";
+    });
+
+    const loaderOverlay = document.querySelector<HTMLElement>('[role="status"][aria-live="polite"]');
+    if (loaderOverlay) {
+      loaderOverlay.style.opacity = "0";
+      loaderOverlay.style.pointerEvents = "none";
+      loaderOverlay.style.visibility = "hidden";
+    }
+
+    scrollToTopNow();
+    window.requestAnimationFrame(scrollToTopNow);
   }, [isMobileArchiveRoute]);
 
   useEffect(() => {
@@ -130,7 +159,8 @@ function App() {
     const isReturningFromMobileArchive = previousHashRoute === MOBILE_ARCHIVE_ROUTE && hashRoute === "/";
 
     if (isReturningFromMobileArchive) {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      scrollToTopNow();
+      window.requestAnimationFrame(scrollToTopNow);
     }
 
     previousHashRouteRef.current = hashRoute;
@@ -138,7 +168,7 @@ function App() {
 
   return (
     <>
-      {isLoaderVisible && (
+      {isLoaderVisible && !isMobileArchiveRoute && (
         <div
           aria-live="polite"
           className={`fixed inset-0 z-[120] flex items-center justify-center bg-surface transition-opacity duration-[620ms] ${

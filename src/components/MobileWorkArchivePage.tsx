@@ -132,9 +132,9 @@ function MobileWorkArchivePage() {
   const skeletonCount = hasMoreItems ? Math.min(LOAD_STEP, MOBILE_ARCHIVE_WORK_ITEMS.length - visibleCount) : 0;
 
   return (
-    <section className="relative overflow-hidden bg-surface-container-low px-8 py-24 lg:hidden">
+    <section className="relative overflow-hidden bg-surface-container-low px-8 py-24 lg:hidden" style={{ opacity: 1, visibility: "visible" }}>
       <div className="mx-auto max-w-[1500px]">
-        <div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center" data-reveal>
+        <div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center">
           <p className="font-label text-[10px] font-medium uppercase tracking-[0.32em] text-tertiary-container">ARQUIVO COMPLETO</p>
           <h1 className="mt-5 font-headline text-[clamp(2rem,5.5vw,4.45rem)] font-black uppercase leading-[0.92] tracking-[0.08em] text-on-surface">
             Seleção Expandida
@@ -154,8 +154,7 @@ function MobileWorkArchivePage() {
           {visibleItems.map((item, index) => (
             <figure
               key={`${item.label}-${item.title}`}
-              className={`overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${index % 2 === 0 ? "reveal-delay-1" : "reveal-delay-2"}`}
-              data-reveal
+              className="overflow-hidden bg-surface-container-highest ring-1 ring-white/10"
             >
               <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
                 {!loadedIndexes.has(index) && <div className="absolute inset-0 animate-pulse bg-outline-variant/20" />}
@@ -185,8 +184,7 @@ function MobileWorkArchivePage() {
           {Array.from({ length: skeletonCount }).map((_, skeletonIndex) => (
             <figure
               key={`skeleton-${visibleCount + skeletonIndex}`}
-              className={`overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${skeletonIndex % 2 === 0 ? "reveal-delay-1" : "reveal-delay-2"}`}
-              data-reveal
+              className="overflow-hidden bg-surface-container-highest ring-1 ring-white/10"
             >
               <div className="relative aspect-[4/5] w-full animate-pulse bg-outline-variant/20 sm:aspect-[16/10]" />
               <figcaption className="border-t border-outline-variant/60 px-5 py-6 sm:px-6">
@@ -201,7 +199,7 @@ function MobileWorkArchivePage() {
 
         {hasMoreItems && <div ref={loadMoreTriggerRef} className="h-1 w-full" />}
 
-        <div className="mt-10 flex justify-center" data-reveal>
+        <div className="mt-10 flex justify-center">
           <a
             className="inline-flex items-center justify-center border border-outline-variant/70 px-6 py-3 font-label text-[10px] uppercase tracking-[0.24em] text-on-surface transition-colors duration-500 hover:border-tertiary-container hover:text-tertiary-container"
             href="#/"

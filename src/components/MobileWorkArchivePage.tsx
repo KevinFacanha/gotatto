@@ -9,9 +9,9 @@ type MobileEditorialItem = {
   title: string;
 };
 
-const withMobileTransform = (url: string) => url.replace("/image/upload/", "/image/upload/c_limit,w_900,dpr_auto/");
-const INITIAL_VISIBLE_ITEMS = 1;
-const LOAD_STEP = 2;
+const withMobileTransform = (url: string) => url.replace("/image/upload/", "/image/upload/c_limit,w_700,dpr_auto/");
+const INITIAL_VISIBLE_ITEMS = 2;
+const LOAD_STEP = 3;
 
 const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
@@ -92,6 +92,7 @@ function MobileWorkArchivePage() {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_ITEMS);
   const [loadedIndexes, setLoadedIndexes] = useState<Set<number>>(new Set());
   const loadMoreTriggerRef = useRef<HTMLDivElement>(null);
+  const prefetchedSourcesRef = useRef<Set<string>>(new Set());
 
   const visibleItems = useMemo(() => MOBILE_ARCHIVE_WORK_ITEMS.slice(0, visibleCount), [visibleCount]);
   const hasMoreItems = visibleCount < MOBILE_ARCHIVE_WORK_ITEMS.length;
@@ -110,12 +111,39 @@ function MobileWorkArchivePage() {
 
         setVisibleCount((current) => Math.min(current + LOAD_STEP, MOBILE_ARCHIVE_WORK_ITEMS.length));
       },
-      { rootMargin: "300px 0px 300px 0px", threshold: 0.01 },
+      { rootMargin: "1200px 0px 1200px 0px", threshold: 0 },
     );
 
     observer.observe(trigger);
     return () => observer.disconnect();
   }, [hasMoreItems]);
+
+  useEffect(() => {
+    if (!hasMoreItems) {
+      return;
+    }
+
+    const nextBatch = MOBILE_ARCHIVE_WORK_ITEMS.slice(visibleCount, Math.min(visibleCount + LOAD_STEP + 2, MOBILE_ARCHIVE_WORK_ITEMS.length));
+    if (nextBatch.length === 0) {
+      return;
+    }
+
+    const prefetchNextBatch = () => {
+      nextBatch.forEach((item) => {
+        if (prefetchedSourcesRef.current.has(item.image)) {
+          return;
+        }
+
+        const image = new Image();
+        image.decoding = "async";
+        image.src = item.image;
+        prefetchedSourcesRef.current.add(item.image);
+      });
+    };
+
+    const timeoutId = window.setTimeout(prefetchNextBatch, 80);
+    return () => window.clearTimeout(timeoutId);
+  }, [hasMoreItems, visibleCount]);
 
   const markImageLoaded = (index: number) => {
     setLoadedIndexes((current) => {
@@ -163,7 +191,7 @@ function MobileWorkArchivePage() {
                   className={`h-full w-full object-cover transition-opacity duration-500 ease-out ${loadedIndexes.has(index) ? "opacity-100" : "opacity-0"}`}
                   decoding="async"
                   fetchPriority={index === 0 ? "high" : "auto"}
-                  loading={index === 0 ? "eager" : "lazy"}
+                  loading={index < INITIAL_VISIBLE_ITEMS ? "eager" : "lazy"}
                   onError={() => markImageLoaded(index)}
                   onLoad={() => markImageLoaded(index)}
                   src={item.image}

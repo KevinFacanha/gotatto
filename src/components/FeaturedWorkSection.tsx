@@ -468,15 +468,12 @@ function FeaturedWorkSection() {
                 }}
               >
                 <img
-                  {...getCloudinaryImageSources(item.image, {
-                    sizes: "(min-width: 1280px) 30rem, (min-width: 1024px) 24rem, (min-width: 640px) 64vw, 76vw",
-                    widths: [420, 620, 840, 1120, 1440],
-                  })}
                   alt={item.title}
                   className="trabalhos-collage-media h-full w-full object-cover opacity-[0.9]"
                   decoding="async"
                   draggable={false}
                   loading={index < 2 ? "eager" : "lazy"}
+                  src={item.image}
                   style={{ objectPosition: item.objectPosition }}
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/95 via-surface/30 to-transparent" />

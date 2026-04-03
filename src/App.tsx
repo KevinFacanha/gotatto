@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import AboutSection from "./components/AboutSection";
+import ArtworksArchivePage from "./components/ArtworksArchivePage";
 import Footer from "./components/Footer";
 import FeaturedWorkSection from "./components/FeaturedWorkSection";
 import HeroSection from "./components/HeroSection";
@@ -15,6 +16,7 @@ const LOADER_HOLD_MS = 180;
 const LOADER_FADE_MS = 620;
 const LOADER_PROGRESS_MS = LOADER_TOTAL_MS - LOADER_HOLD_MS - LOADER_FADE_MS;
 const MOBILE_ARCHIVE_ROUTE = "/trabalhos/arquivo";
+const ARTWORK_ARCHIVE_ROUTE = "/quadros/arquivo";
 
 function App() {
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -24,8 +26,10 @@ function App() {
   const [isMobileViewport, setIsMobileViewport] = useState(() => window.matchMedia("(max-width: 1023px)").matches);
   const previousHashRouteRef = useRef(hashRoute);
   const isMobileArchiveRoute = isMobileViewport && hashRoute === MOBILE_ARCHIVE_ROUTE;
+  const isArtworkArchiveRoute = hashRoute === ARTWORK_ARCHIVE_ROUTE;
+  const isStandaloneRoute = isMobileArchiveRoute || isArtworkArchiveRoute;
 
-  useEditorialMotion(isMobileArchiveRoute ? "mobile-archive-route" : "home-route");
+  useEditorialMotion(isMobileArchiveRoute ? "mobile-archive-route" : isArtworkArchiveRoute ? "artwork-archive-route" : "home-route");
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -130,11 +134,11 @@ function App() {
   };
 
   useEffect(() => {
-    if (!isMobileArchiveRoute) {
+    if (!isStandaloneRoute) {
       return;
     }
 
-    // Ensure no visual lock/overlay from home leaks into the mobile archive route.
+    // Ensure no visual lock/overlay from home leaks into standalone archive routes.
     setIsLoaderExiting(false);
     setIsLoaderVisible(false);
     resetInteractionLocks();
@@ -146,13 +150,15 @@ function App() {
     return () => {
       window.cancelAnimationFrame(rafId);
     };
-  }, [isMobileArchiveRoute]);
+  }, [isStandaloneRoute]);
 
   useEffect(() => {
     const previousHashRoute = previousHashRouteRef.current;
     const isReturningFromMobileArchive = isMobileViewport && previousHashRoute === MOBILE_ARCHIVE_ROUTE && hashRoute === "/";
+    const isReturningFromArtworkArchive = previousHashRoute === ARTWORK_ARCHIVE_ROUTE && hashRoute === "/";
+    const isReturningFromStandaloneRoute = isReturningFromMobileArchive || isReturningFromArtworkArchive;
 
-    if (isReturningFromMobileArchive) {
+    if (isReturningFromStandaloneRoute) {
       resetInteractionLocks();
       window.dispatchEvent(new CustomEvent("gotatto:force-close-overlays"));
       scrollToTopNow();
@@ -172,7 +178,7 @@ function App() {
 
   return (
     <>
-      {isLoaderVisible && !isMobileArchiveRoute && (
+      {isLoaderVisible && !isStandaloneRoute && (
         <div
           aria-live="polite"
           className={`fixed inset-0 z-[120] flex items-center justify-center bg-surface transition-opacity duration-[620ms] ${
@@ -192,10 +198,14 @@ function App() {
           </div>
         </div>
       )}
-      {!isMobileArchiveRoute && <Navbar />}
+      {!isStandaloneRoute && <Navbar />}
       {isMobileArchiveRoute ? (
         <main>
           <MobileWorkArchivePage />
+        </main>
+      ) : isArtworkArchiveRoute ? (
+        <main>
+          <ArtworksArchivePage />
         </main>
       ) : (
         <>

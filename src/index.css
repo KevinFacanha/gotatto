@@ -70,9 +70,13 @@
 .trabalhos-collage-media {
   transform:
     translate3d(calc(var(--card-delta) * -14px * var(--work-motion-scale)), 0, 0)
-    scale(calc(1 + (var(--card-focus) * 0.05)));
+    scale(calc(1 + (var(--card-focus) * var(--trabalhos-media-focus-scale, 0.05))));
   transition: transform 620ms var(--editorial-ease);
   will-change: transform;
+}
+
+.trabalhos-collage-media--reduced-zoom {
+  --trabalhos-media-focus-scale: 0.01;
 }
 
 .trabalhos-ruler {

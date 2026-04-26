@@ -7,9 +7,9 @@ function AboutSection() {
         <div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center md:mb-16" data-reveal>
           <p className="font-label text-[10px] font-medium uppercase tracking-[0.32em] text-tertiary-container">SOBRE</p>
           <h2 className="mt-5 font-headline text-[clamp(2rem,5.5vw,4.45rem)] font-black uppercase leading-[0.92] tracking-[0.08em] text-on-surface">
-            Assinatura Visual
+            TRAJETÓRIA SÓLIDA
             <br />
-            Com Direção Autoral
+            COM VISÃO AUTORAL
           </h2>
           <span aria-hidden="true" className="mt-8 h-16 w-px bg-outline-variant/70 md:h-20" />
         </div>
@@ -25,7 +25,7 @@ function AboutSection() {
                 alt="Retrato na neve"
                 className="h-full w-full object-cover transition-transform duration-700 ease-out motion-safe:lg:group-hover:scale-[1.06]"
                 src={foto1}
-                style={{ objectPosition: "center 35%" }}
+                style={{ objectPosition: "44% 35%" }}
               />
             </div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/92 via-surface/38 to-surface/58" />
@@ -39,17 +39,18 @@ function AboutSection() {
 
           <div className="flex h-full flex-col justify-between gap-7 border-l border-outline-variant/70 pl-4 md:pl-6 lg:col-span-4 lg:pt-2 reveal-delay-2" data-reveal>
             <div>
-              <p className="font-label text-[10px] uppercase tracking-[0.24em] text-on-surface-variant/80">ESTÚDIO / SÃO PAULO</p>
+              <p className="font-label text-[10px] uppercase tracking-[0.24em] text-on-surface-variant/80">RAFAEL / TATUADOR</p>
               <h3 className="mt-4 font-headline text-[clamp(1.5rem,2.1vw,2.1rem)] font-black uppercase tracking-[0.06em] text-on-surface">
-                Direção Autoral
+                MINHA TRAJETÓRIA
               </h3>
               <p className="mt-4 max-w-[34ch] text-pretty text-[1.02rem] leading-relaxed text-on-surface-variant">
-                Cada peça começa com escuta precisa e direção estética. O desenho nasce para o corpo certo, no ritmo certo, com leitura
-                forte em qualquer distância.
+                Sou Rafael, tenho 28 anos e atuo como tatuador profissional há mais de uma década. Desenho desde a infância e iniciei
+                minha trajetória na tatuagem aos 18 anos. Desde então, venho me especializando por meio de cursos e workshops com
+                artistas nacionais e internacionais, sempre com foco em precisão, segurança e qualidade.
               </p>
             </div>
             <p className="border-l border-outline-variant/70 pl-4 font-label text-[11px] uppercase tracking-[0.2em] text-on-surface/88">
-              Design de tatuagem autoral, linguagem gráfica e presença visual duradoura.
+              FINE LINE, OLD SCHOOL, ORIENTAL, BLACKWORK, COBERTURA E RECONSTRUÇÃO.
             </p>
           </div>
         </div>

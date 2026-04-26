@@ -15,6 +15,7 @@ import foto16 from "../foto 16.jpeg";
 import foto17 from "../foto 17.jpeg";
 import { getCloudinaryImageSources } from "../lib/cloudinaryImage";
 
+const ARCHIVE_18_IMAGE = "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775068120/foto_18_xfp53k.jpg";
 const WORK_IMAGES = [foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12, foto13, foto14, foto15, foto16, foto17];
 const WIDTH_PATTERN = [
   "w-[74vw] sm:w-[60vw] lg:w-[21rem] xl:w-[24rem]",
@@ -36,13 +37,41 @@ const WORK_ITEMS = WORK_IMAGES.map((image, index) => {
   const padded = String(number).padStart(2, "0");
 
   return {
-    heightClass: HEIGHT_PATTERN[index % HEIGHT_PATTERN.length],
-    image,
-    label: `${padded} / TRABALHO`,
-    objectPosition: POSITION_PATTERN[index % POSITION_PATTERN.length],
+    heightClass: number === 6 ? "h-[18rem] sm:h-[20rem] lg:h-[32rem] xl:h-[36rem]" : HEIGHT_PATTERN[index % HEIGHT_PATTERN.length],
+    image: number === 6 ? ARCHIVE_18_IMAGE : image,
+    label:
+      number === 7
+        ? "07 / TRABALHO / OLD SCHOOL / JESUS"
+        : number === 4
+          ? "04 / TRABALHO / BLACK WORK / FLORAL"
+        : number === 5
+          ? "05 / TRABALHO / NEO TRAD / TATTOO SOBRE TATTOO"
+        : number === 6
+          ? "06 / TRABALHO / LETTERING / FREE HAND"
+        : number === 9
+          ? "09 / TRABALHO / LETTERING / FREE HAND"
+        : number === 11
+          ? "11 / TRABALHO / FINE LINE"
+        : number === 13
+          ? "13 / TRABALHO / OLD SCHOOL"
+        : number === 14
+          ? "14 / TRABALHO / BLACK WORK"
+        : number === 15
+          ? "Kanji / Red ink"
+        : number === 16
+          ? "Black work / Lettering"
+        : number === 17
+          ? "17 / TRABALHO / OLDSCHOOL"
+        : number === 12
+          ? "12 / TRABALHO / FINE LINE"
+        : number === 8
+            ? "08 / TRABALHO / BLACK WORK / FREE MACHINE"
+            : `${padded} / TRABALHO`,
+    mediaClassName: number === 6 || number === 13 ? "trabalhos-collage-media--reduced-zoom" : "",
+    objectPosition: number === 13 ? "center 60%" : number === 6 ? "center 32%" : POSITION_PATTERN[index % POSITION_PATTERN.length],
     offsetClass: OFFSET_PATTERN[index % OFFSET_PATTERN.length],
     title: `Arquivo ${padded}`,
-    widthClass: WIDTH_PATTERN[index % WIDTH_PATTERN.length],
+    widthClass: number === 6 ? "w-[72vw] sm:w-[58vw] lg:w-[24rem] xl:w-[28rem]" : WIDTH_PATTERN[index % WIDTH_PATTERN.length],
   };
 });
 
@@ -65,7 +94,7 @@ const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
     title: "Arquivo 04",
   },
   {
-    category: "FINE LINE / ORNAMENTAL",
+    category: "OLD SCHOOL / JESUS",
     description: "Direção de contraste controlado entre delicadeza e estrutura, com acabamento limpo e ritmo visual contínuo.",
     image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067081/foto_7_ia0z5e.jpg",
     label: "07 / TRABALHO",
@@ -73,16 +102,18 @@ const MOBILE_HOME_WORK_ITEMS: MobileEditorialItem[] = [
     title: "Arquivo 07",
   },
   {
-    category: "BOTANICAL / AUTORAL",
-    description: "Peça desenhada para valorizar profundidade e silêncio visual, preservando personalidade sem excesso gráfico.",
+    category: "FINE LINE",
+    description:
+      "Homenagem ao Josh em fine line, com traço leve, leitura delicada e construção sensível para transformar memória e afeto em presença visual permanente.",
     image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067123/foto_12_kylf5l.jpg",
     label: "12 / TRABALHO",
     objectPosition: "center 35%",
     title: "Arquivo 12",
   },
   {
-    category: "EDITORIAL / MINIMAL",
-    description: "Projeto com eixo tipográfico e gesto preciso, equilibrando impacto imediato com sofisticação atemporal.",
+    category: "BLACK WORK / FREE MACHINE",
+    description:
+      "Composição em black work feita em free machine, explorando impacto visual, contraste forte e desenho livre para criar uma peça de presença marcante e leitura imediata.",
     image: "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067091/foto_8_wqybcz.jpg",
     label: "08 / TRABALHO",
     objectPosition: "center 30%",
@@ -469,7 +500,7 @@ function FeaturedWorkSection() {
               >
                 <img
                   alt={item.title}
-                  className="trabalhos-collage-media h-full w-full object-cover opacity-[0.9]"
+                  className={`trabalhos-collage-media h-full w-full object-cover opacity-[0.9] ${item.mediaClassName}`}
                   decoding="async"
                   draggable={false}
                   loading={index < 2 ? "eager" : "lazy"}

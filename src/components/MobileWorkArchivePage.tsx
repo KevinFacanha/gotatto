@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import foto17 from "../foto 17.jpeg";
 
 type MobileEditorialItem = {
   category: string;
@@ -15,74 +16,82 @@ const LOAD_STEP = 3;
 
 const MOBILE_ARCHIVE_WORK_ITEMS: MobileEditorialItem[] = [
   {
-    category: "ARQUIVO / ASSINATURA",
-    description: "Projeto de assinatura autoral com equilíbrio entre presença gráfica e acabamento limpo de leitura imediata.",
+    category: "LETTERING / FREE HAND",
+    description:
+      "“Amour”, em francês, desenvolvido em free hand com liberdade de composição e desenho direto na pele, respeitando a anatomia e as proporções do corpo do cliente para uma leitura autoral e natural.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775068120/foto_18_xfp53k.jpg"),
     label: "18 / TRABALHO",
     objectPosition: "center 32%",
     title: "Arquivo 18",
   },
   {
-    category: "ORNAMENTAL / FINE LINE",
-    description: "Composição de linhas contínuas e pausas visuais para preservar fluidez e sofisticação no resultado final.",
+    category: "NEO TRAD / TATTOO SOBRE TATTOO",
+    description:
+      "Sagrado Coração de Jesus em linguagem neo trad, aplicado sobre uma tatuagem anterior com abordagem de tattoo sobre tattoo, preservando leitura, contraste e presença visual sem necessariamente encobrir totalmente a arte de base.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067062/foto_5_ufz5z2.jpg"),
     label: "05 / TRABALHO",
     objectPosition: "center 36%",
     title: "Arquivo 05",
   },
   {
-    category: "BOTÂNICO / PRETO",
-    description: "Estrutura vegetal com volume controlado, desenhada para manter impacto sem perder leveza editorial.",
-    image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067071/foto_6_ylpzs4.jpg"),
+    category: "OLDSCHOOL",
+    description: "Tatuagem em oldschool de um cachorro doberman, pensada para destacar contraste, impacto visual e uma leitura clássica com presença atemporal.",
+    image: foto17,
     label: "06 / TRABALHO",
     objectPosition: "center 28%",
     title: "Arquivo 06",
   },
   {
-    category: "GRÁFICO / CONTORNO",
-    description: "Recorte preciso entre linhas e áreas de sombra, criando presença marcante com acabamento silencioso.",
+    category: "Lettering / Free hand",
+    description:
+      "Lettering autoral feito à mão livre, com leitura direta e personalidade marcante. A composição reforça a ideia de permanecer fiel à própria essência, com um desenho tipográfico cru, expressivo e cheio de identidade.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067099/foto_9_jhcaj0.jpg"),
     label: "09 / TRABALHO",
     objectPosition: "center 52%",
     title: "Arquivo 09",
   },
   {
-    category: "TEXTURA / BLACKWORK",
-    description: "Volume de preto aplicado com controle de textura para manter nitidez gráfica e assinatura contemporânea.",
+    category: "FINE LINE",
+    description:
+      "Retrato em fine line criado como homenagem ao Zeca, com traço delicado e leitura afetiva, desenvolvido para transformar a memória do animal em uma peça leve, sensível e de presença duradoura.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067115/foto_11_sw2ico.jpg"),
     label: "11 / TRABALHO",
     objectPosition: "center 42%",
     title: "Arquivo 11",
   },
   {
-    category: "EDITORIAL / FLUIDO",
-    description: "Direção visual com linhas alongadas e ritmo orgânico, pensada para valorizar movimento natural do corpo.",
+    category: "OLD SCHOOL",
+    description:
+      "Peça em old school criada como homenagem ao pai, com leitura direta, força simbólica e construção pensada para transformar memória, presença e afeto em marca permanente.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067135/foto_13_vypyae.jpg"),
     label: "13 / TRABALHO",
-    objectPosition: "center 44%",
+    objectPosition: "center 60%",
     title: "Arquivo 13",
   },
   {
-    category: "AUTORAL / MINIMAL",
-    description: "Projeto de presença discreta e precisa, com desenho enxuto e contraste refinado de longa duração.",
+    category: "BLACK WORK",
+    description:
+      "Dragão medieval em black work, construído com leitura forte e presença marcante. A composição valoriza o detalhamento das linhas, a textura das escamas e a imponência da peça, resultando em uma tatuagem de estética sólida, sombria e atemporal.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067143/foto_14_gshnky.jpg"),
     label: "14 / TRABALHO",
     objectPosition: "center 35%",
     title: "Arquivo 14",
   },
   {
-    category: "FINE LINE / BOTÂNICO",
-    description: "Construção leve com microdetalhes calibrados para leitura elegante em close e em visão ampla.",
+    category: "Red ink",
+    description:
+      "O kanji 愛 (ai), que significa “amor”, foi esculpido na areia como símbolo da solidão e da promessa de se tornar um “demônio que ama apenas a si mesmo”. Com o passar do tempo, porém, esse significado evolui e passa a representar a superação da dor.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067152/foto_15_ortfw7.jpg"),
-    label: "15 / TRABALHO",
+    label: "Kanji",
     objectPosition: "center 38%",
     title: "Arquivo 15",
   },
   {
-    category: "COMPOSIÇÃO / EDITORIAL",
-    description: "Recorte visual de alto equilíbrio entre forma e vazio, reforçando clareza e assinatura visual.",
+    category: "Lettering",
+    description:
+      "Homenagem à mãe Vera, desenvolvida em black work com abordagem tipográfica marcante. A composição valoriza contraste, presença visual e leitura forte, transformando o nome em uma peça de impacto e significado afetivo.",
     image: withMobileTransform("https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775067159/foto_16_qf4fwu.jpg"),
-    label: "16 / TRABALHO",
+    label: "Black work",
     objectPosition: "center 46%",
     title: "Arquivo 16",
   },

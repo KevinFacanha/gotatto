@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import arteVideo from "../arte.mp4";
+import { getRevealProps, getStaggerItemProps, getStaggerProps } from "../lib/scrollReveal";
 
 type ArtworkEditorialItem = {
   description: string;
@@ -18,7 +20,7 @@ const ARTWORK_EDITORIAL_ITEMS: ArtworkEditorialItem[] = [
     title: "Direcao de Volume",
   },
   {
-    description: "Curadoria em andamento para desdobrar o universo GOTATTO em suportes fisicos com assinatura consistente.",
+    description: "Curadoria em andamento para desdobrar o universo GOTA TATTOO em suportes fisicos com assinatura consistente.",
     label: "03 / OBRA",
     title: "Arquivo em Curadoria",
   },
@@ -26,29 +28,40 @@ const ARTWORK_EDITORIAL_ITEMS: ArtworkEditorialItem[] = [
 
 function ArtworksArchivePage() {
   return (
-    <section className="relative overflow-hidden bg-surface-container-low px-8 py-24" style={{ opacity: 1, visibility: "visible" }}>
+    <section className="relative overflow-hidden bg-surface-container-low px-4 py-24 sm:px-8 md:px-12 xl:px-16" style={{ opacity: 1, visibility: "visible" }}>
       <div className="mx-auto max-w-[1500px]">
-        <div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center" data-reveal>
-          <p className="font-label text-[10px] font-medium uppercase tracking-[0.32em] text-tertiary-container">ARQUIVO DE OBRAS</p>
-          <h1 className="mt-5 font-headline text-[clamp(2rem,5.5vw,4.45rem)] font-black uppercase leading-[0.92] tracking-[0.08em] text-on-surface">
+        <motion.div
+          className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center"
+          {...getStaggerProps({ amount: 0.22, delayChildren: 0.04, staggerChildren: 0.08 })}
+        >
+          <motion.p className="font-label text-[10px] font-medium uppercase tracking-[0.32em] text-tertiary-container" {...getStaggerItemProps()}>
+            ARQUIVO DE OBRAS
+          </motion.p>
+          <motion.h1
+            className="mt-5 font-headline text-[clamp(2rem,5.5vw,4.45rem)] font-black uppercase leading-[0.92] tracking-[0.08em] text-on-surface"
+            {...getStaggerItemProps({ duration: 0.66 })}
+          >
             Colecao Editorial
             <br />
             Quadros GOTA
-          </h1>
-          <span aria-hidden="true" className="mt-8 h-16 w-px bg-outline-variant/70" />
-          <a
+          </motion.h1>
+          <motion.span aria-hidden="true" className="mt-8 h-16 w-px bg-outline-variant/70" {...getStaggerItemProps({ delay: 0.06 })} />
+          <motion.a
             className="mt-8 inline-flex items-center justify-center border border-outline-variant/70 px-6 py-3 font-label text-[10px] uppercase tracking-[0.24em] text-on-surface transition-colors duration-500 hover:border-tertiary-container hover:text-tertiary-container"
             href="#/"
+            {...getStaggerItemProps({ delay: 0.1 })}
           >
             Voltar ao Inicio
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
-        <figure className="relative isolate overflow-hidden bg-surface-container-highest ring-1 ring-white/10 reveal-delay-1" data-reveal>
+        <motion.figure className="relative isolate overflow-hidden bg-surface-container-highest ring-1 ring-white/10" {...getRevealProps({ delay: 0.08 })}>
           <div className="relative aspect-[4/5] w-full sm:aspect-[16/10] lg:aspect-[21/9]">
             <video
               autoPlay
-              className="h-full w-full object-cover brightness-[0.42] contrast-[1.08] saturate-[0.9] md:brightness-[0.48]"
+              className="parallax-soft h-full w-full object-cover brightness-[0.42] contrast-[1.08] saturate-[0.9] md:brightness-[0.48]"
+              data-speed="0.2"
+              data-speed-range="42"
               loop
               muted
               playsInline
@@ -68,23 +81,23 @@ function ArtworksArchivePage() {
               dedicada em cada peca.
             </p>
           </figcaption>
-        </figure>
+        </motion.figure>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <motion.div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3" {...getStaggerProps({ amount: 0.2, delayChildren: 0.04, staggerChildren: 0.08 })}>
           {ARTWORK_EDITORIAL_ITEMS.map((item, index) => (
-            <article
+            <motion.article
               key={`${item.label}-${item.title}`}
               className={`border-l-2 px-5 py-7 ${index === 0 ? "border-tertiary-container bg-surface-container-highest/55" : "border-outline-variant/60 bg-surface-container-high/45"} ring-1 ring-white/5`}
-              data-reveal
+              {...getStaggerItemProps()}
             >
               <p className={`font-label text-[10px] uppercase tracking-[0.24em] ${index === 0 ? "text-tertiary-container" : "text-on-surface-variant/85"}`}>
                 {item.label}
               </p>
               <h3 className="mt-3 font-headline text-[1.35rem] font-black uppercase tracking-[0.04em] text-on-surface">{item.title}</h3>
               <p className="mt-3 text-[0.96rem] leading-relaxed text-on-surface-variant">{item.description}</p>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

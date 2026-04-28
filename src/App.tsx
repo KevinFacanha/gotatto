@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import AboutSection from "./components/AboutSection";
 import ArtworksArchivePage from "./components/ArtworksArchivePage";
+import ComingSoonPage from "./components/ComingSoonPage";
 import Footer from "./components/Footer";
 import FeaturedWorkSection from "./components/FeaturedWorkSection";
 import HeroSection from "./components/HeroSection";
@@ -15,21 +16,44 @@ const LOADER_TOTAL_MS = 5000;
 const LOADER_HOLD_MS = 180;
 const LOADER_FADE_MS = 620;
 const LOADER_PROGRESS_MS = LOADER_TOTAL_MS - LOADER_HOLD_MS - LOADER_FADE_MS;
+const HOME_ROUTE = "/";
 const MOBILE_ARCHIVE_ROUTE = "/trabalhos/arquivo";
 const ARTWORK_ARCHIVE_ROUTE = "/quadros/arquivo";
+const ARTWORK_COMING_SOON_ROUTE = "/quadros/em-breve";
+const HOME_SECTION_IDS = new Set(["hero", "sobre", "trabalhos", "quadros", "manifesto", "contato"]);
+
+const readHashState = () => {
+  const normalizedHash = window.location.hash.replace(/^#/, "") || HOME_ROUTE;
+
+  if (normalizedHash.startsWith("/")) {
+    return { route: normalizedHash, sectionId: null };
+  }
+
+  return {
+    route: HOME_ROUTE,
+    sectionId: HOME_SECTION_IDS.has(normalizedHash) ? normalizedHash : null,
+  };
+};
 
 function App() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [isLoaderExiting, setIsLoaderExiting] = useState(false);
-  const [hashRoute, setHashRoute] = useState(() => window.location.hash.replace(/^#/, "") || "/");
-  const [isMobileViewport, setIsMobileViewport] = useState(() => window.matchMedia("(max-width: 1023px)").matches);
-  const previousHashRouteRef = useRef(hashRoute);
-  const isMobileArchiveRoute = isMobileViewport && hashRoute === MOBILE_ARCHIVE_ROUTE;
+  const [{ route: hashRoute, sectionId: pendingSectionId }, setHashState] = useState(readHashState);
+  const isMobileArchiveRoute = hashRoute === MOBILE_ARCHIVE_ROUTE;
   const isArtworkArchiveRoute = hashRoute === ARTWORK_ARCHIVE_ROUTE;
-  const isStandaloneRoute = isMobileArchiveRoute || isArtworkArchiveRoute;
+  const isArtworkComingSoonRoute = hashRoute === ARTWORK_COMING_SOON_ROUTE;
+  const isStandaloneRoute = isMobileArchiveRoute || isArtworkArchiveRoute || isArtworkComingSoonRoute;
 
-  useEditorialMotion(isMobileArchiveRoute ? "mobile-archive-route" : isArtworkArchiveRoute ? "artwork-archive-route" : "home-route");
+  useEditorialMotion(
+    isMobileArchiveRoute
+      ? "mobile-archive-route"
+      : isArtworkArchiveRoute
+        ? "artwork-archive-route"
+        : isArtworkComingSoonRoute
+          ? "artwork-coming-soon-route"
+          : "home-route",
+  );
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -91,33 +115,11 @@ function App() {
 
   useEffect(() => {
     const onHashChange = () => {
-      setHashRoute(window.location.hash.replace(/^#/, "") || "/");
+      setHashState(readHashState());
     };
 
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 1023px)");
-    const onViewportChange = (event: MediaQueryListEvent) => {
-      setIsMobileViewport(event.matches);
-    };
-
-    setIsMobileViewport(mediaQuery.matches);
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", onViewportChange);
-    } else {
-      mediaQuery.addListener(onViewportChange);
-    }
-
-    return () => {
-      if (typeof mediaQuery.removeEventListener === "function") {
-        mediaQuery.removeEventListener("change", onViewportChange);
-      } else {
-        mediaQuery.removeListener(onViewportChange);
-      }
-    };
   }, []);
 
   const scrollToTopNow = () => {
@@ -142,7 +144,7 @@ function App() {
     setIsLoaderExiting(false);
     setIsLoaderVisible(false);
     resetInteractionLocks();
-    window.dispatchEvent(new CustomEvent("gotatto:force-close-overlays"));
+    window.dispatchEvent(new CustomEvent("gota-tattoo:force-close-overlays"));
 
     scrollToTopNow();
     const rafId = window.requestAnimationFrame(scrollToTopNow);
@@ -153,28 +155,45 @@ function App() {
   }, [isStandaloneRoute]);
 
   useEffect(() => {
-    const previousHashRoute = previousHashRouteRef.current;
-    const isReturningFromMobileArchive = isMobileViewport && previousHashRoute === MOBILE_ARCHIVE_ROUTE && hashRoute === "/";
-    const isReturningFromArtworkArchive = previousHashRoute === ARTWORK_ARCHIVE_ROUTE && hashRoute === "/";
-    const isReturningFromStandaloneRoute = isReturningFromMobileArchive || isReturningFromArtworkArchive;
-
-    if (isReturningFromStandaloneRoute) {
-      resetInteractionLocks();
-      window.dispatchEvent(new CustomEvent("gotatto:force-close-overlays"));
-      scrollToTopNow();
-
-      window.requestAnimationFrame(() => {
-        scrollToTopNow();
-        window.requestAnimationFrame(() => {
-          document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => {
-            element.classList.add("is-visible");
-          });
-        });
-      });
+    if (isStandaloneRoute || isLoaderVisible || !pendingSectionId) {
+      return;
     }
 
-    previousHashRouteRef.current = hashRoute;
-  }, [hashRoute, isMobileViewport]);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let rafId = 0;
+    let timeoutId = 0;
+
+    const scrollToPendingSection = () => {
+      const target = document.getElementById(pendingSectionId);
+      if (!target) {
+        return false;
+      }
+
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+
+      return true;
+    };
+
+    const scheduleScrollAttempt = () => {
+      if (scrollToPendingSection()) {
+        return;
+      }
+
+      rafId = window.requestAnimationFrame(() => {
+        timeoutId = window.setTimeout(scrollToPendingSection, 120);
+      });
+    };
+
+    scheduleScrollAttempt();
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+    };
+  }, [isLoaderVisible, isStandaloneRoute, pendingSectionId]);
 
   return (
     <>
@@ -207,17 +226,23 @@ function App() {
         <main>
           <ArtworksArchivePage />
         </main>
+      ) : isArtworkComingSoonRoute ? (
+        <main>
+          <ComingSoonPage />
+        </main>
       ) : (
         <>
           <main>
             <div id="hero" className="scroll-mt-28">
               <HeroSection />
             </div>
-            <AboutSection />
+            <div id="sobre" className="scroll-mt-28">
+              <AboutSection />
+            </div>
             <div id="trabalhos" className="scroll-mt-28">
               <FeaturedWorkSection />
             </div>
-            <div id="servicos" className="scroll-mt-28">
+            <div id="quadros" className="scroll-mt-28">
               <ServicesSection />
             </div>
             <div id="manifesto" className="scroll-mt-28">

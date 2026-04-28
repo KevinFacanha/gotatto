@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import foto4 from "../foto 4.jpeg";
 import foto5 from "../foto 5.jpeg";
@@ -14,6 +15,7 @@ import foto15 from "../foto 15.jpeg";
 import foto16 from "../foto 16.jpeg";
 import foto17 from "../foto 17.jpeg";
 import { getCloudinaryImageSources } from "../lib/cloudinaryImage";
+import { getRevealProps, getStaggerItemProps, getStaggerProps } from "../lib/scrollReveal";
 
 const ARCHIVE_18_IMAGE = "https://res.cloudinary.com/dy36sfdb3/image/upload/q_auto/f_auto/v1775068120/foto_18_xfp53k.jpg";
 const WORK_IMAGES = [foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12, foto13, foto14, foto15, foto16, foto17];
@@ -395,15 +397,15 @@ function FeaturedWorkSection() {
   }, []);
 
   const renderMobileEditorialItem = (item: MobileEditorialItem, index: number) => (
-    <figure
+    <motion.figure
       key={`${item.label}-${item.title}`}
-      className={`overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${index % 2 === 0 ? "reveal-delay-1" : "reveal-delay-2"}`}
-      data-reveal
+      className="overflow-hidden bg-surface-container-highest ring-1 ring-white/10"
+      {...getRevealProps({ amount: 0.2, delay: index * 0.08 })}
     >
-      <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
+      <div className="relative aspect-[4/5] w-full sm:aspect-[16/10] lg:aspect-[5/4]">
         <img
           {...getCloudinaryImageSources(item.image, {
-            sizes: "(min-width: 640px) 36rem, calc(100vw - 4rem)",
+            sizes: "(min-width: 1280px) 24rem, (min-width: 768px) calc(50vw - 4rem), calc(100vw - 2rem)",
             widths: [320, 440, 620, 820, 1040],
           })}
           alt={item.title}
@@ -422,14 +424,14 @@ function FeaturedWorkSection() {
         <h3 className="mt-3 font-headline text-[clamp(1.35rem,6vw,2rem)] font-black uppercase tracking-[0.04em] text-on-surface">{item.title}</h3>
         <p className="mt-3 max-w-[38ch] text-pretty text-[0.98rem] leading-relaxed text-on-surface-variant">{item.description}</p>
       </figcaption>
-    </figure>
+    </motion.figure>
   );
 
   return (
-    <section className="relative overflow-hidden bg-surface-container-low px-8 py-24">
+    <section className="relative overflow-hidden bg-surface-container-low px-4 py-24 sm:px-8 md:px-12 xl:px-16">
       <div className="mx-auto max-w-[1500px]">
-        <div className="lg:hidden">
-          <div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center" data-reveal>
+        <div className="xl:hidden">
+          <motion.div className="mx-auto mb-14 flex max-w-[920px] flex-col items-center text-center" {...getRevealProps()}>
             <p className="font-label text-[10px] font-medium uppercase tracking-[0.32em] text-tertiary-container">TRABALHOS</p>
             <h2 className="mt-5 font-headline text-[clamp(2rem,5.5vw,4.45rem)] font-black uppercase leading-[0.92] tracking-[0.08em] text-on-surface">
               Arquivo Vivo
@@ -437,47 +439,44 @@ function FeaturedWorkSection() {
               Trabalhos GOTA
             </h2>
             <span aria-hidden="true" className="mt-8 h-16 w-px bg-outline-variant/70" />
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 gap-10">{MOBILE_HOME_WORK_ITEMS.map(renderMobileEditorialItem)}</div>
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">{MOBILE_HOME_WORK_ITEMS.map(renderMobileEditorialItem)}</div>
 
-          <div className="mt-10 flex justify-center" data-reveal>
+          <motion.div className="mt-10 flex justify-center" {...getRevealProps({ delay: 0.08 })}>
             <a
               className="inline-flex items-center justify-center border border-outline-variant/70 px-6 py-3 font-label text-[10px] uppercase tracking-[0.24em] text-on-surface transition-colors duration-500 hover:border-tertiary-container hover:text-tertiary-container"
               href="#/trabalhos/arquivo"
             >
               Saiba Mais
             </a>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="mb-9 hidden gap-8 md:mb-10 lg:grid lg:grid-cols-12 lg:items-end lg:gap-10" data-reveal>
-          <div className="lg:col-span-4">
+        <motion.div className="mb-9 hidden gap-8 md:mb-10 xl:grid xl:grid-cols-12 xl:items-end xl:gap-10" {...getRevealProps()}>
+          <div className="xl:col-span-4">
             <p className="font-label text-[11px] uppercase tracking-[0.24em] text-tertiary-container">Trabalhos</p>
             <p className="mt-6 max-w-[30rem] text-sm leading-relaxed text-on-surface-variant">
               Sequência editorial em arrasto lateral, com recortes visuais e ritmo de composição para leitura imersiva.
             </p>
             <div aria-hidden="true" className="mt-6 h-px w-full max-w-[24rem] bg-outline-variant/45" />
           </div>
-          <h2 className="hidden text-right font-headline text-[clamp(2.2rem,6.2vw,5.2rem)] font-black uppercase leading-[0.86] tracking-[0.01em] text-on-surface lg:col-span-8 lg:block">
+          <h2 className="hidden text-right font-headline text-[clamp(2.2rem,6.2vw,5.2rem)] font-black uppercase leading-[0.86] tracking-[0.01em] text-on-surface xl:col-span-8 xl:block">
             Arquivo Vivo
             <br />
             Trabalhos GOTA
             <br />
             <span className="text-tertiary-container">(SP/2026)</span>
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="relative hidden reveal-delay-1 lg:block" data-reveal>
+        <motion.div className="relative hidden xl:block" {...getRevealProps({ delay: 0.08 })}>
           <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-8 bg-gradient-to-r from-surface-container-low to-transparent md:w-16" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-8 bg-gradient-to-l from-surface-container-low to-transparent md:w-16" />
 
-          <div
+          <motion.div
             ref={trackRef}
             className={`trabalhos-track ${isDragging ? "is-dragging cursor-grabbing select-none" : "cursor-grab"} flex gap-4 overflow-x-auto pb-2 pt-2 md:gap-5 md:pb-4`}
-            data-stagger
-            data-stagger-base="20"
-            data-stagger-step="48"
             onDragStart={(event) => event.preventDefault()}
             onScroll={() => {
               syncRulerToTrack();
@@ -487,16 +486,16 @@ function FeaturedWorkSection() {
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={stopDrag}
+            {...getStaggerProps({ amount: 0.2, delayChildren: 0.04, staggerChildren: 0.06 })}
           >
             {WORK_ITEMS.map((item, index) => (
-              <article
+              <motion.article
                 key={`${item.label}-${item.title}`}
                 className={`trabalhos-collage-item group relative shrink-0 overflow-hidden bg-surface-container-highest ring-1 ring-white/10 ${item.widthClass} ${item.heightClass} ${item.offsetClass}`}
-                data-reveal
-                data-reveal-item
                 ref={(element) => {
                   cardRefs.current[index] = element;
                 }}
+                {...getStaggerItemProps()}
               >
                 <img
                   alt={item.title}
@@ -514,14 +513,14 @@ function FeaturedWorkSection() {
                     {item.title}
                   </h3>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
 
           <div className="trabalhos-ruler mt-8 h-10" ref={rulerRef}>
             <span aria-hidden="true" className="trabalhos-ruler-marker" />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

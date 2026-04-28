@@ -136,46 +136,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal] {
-    opacity: 0;
-    translate: 0 42px;
-    scale: 0.972;
-    filter: blur(12px);
-    transition:
-      opacity 780ms var(--editorial-ease),
-      translate 940ms var(--editorial-ease),
-      scale 940ms var(--editorial-ease),
-      filter 940ms var(--editorial-ease);
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-
-  [data-reveal].is-visible {
-    opacity: 1;
-    translate: 0 0;
-    scale: 1;
-    filter: blur(0);
-  }
-
-  .reveal-delay-1 {
-    --reveal-delay: 70ms;
-  }
-
-  .reveal-delay-2 {
-    --reveal-delay: 150ms;
-  }
-
-  .reveal-delay-3 {
-    --reveal-delay: 220ms;
-  }
-
-  .reveal-delay-4 {
-    --reveal-delay: 300ms;
-  }
-
-  .reveal-delay-5 {
-    --reveal-delay: 360ms;
-  }
-
   .parallax-soft {
     transform: translate3d(0, var(--parallax-y, 0px), 0);
     will-change: transform;
@@ -272,19 +232,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  [data-reveal] {
-    translate: 0 24px;
-    scale: 0.985;
-    filter: blur(7px);
-    transition:
-      opacity 640ms var(--editorial-ease),
-      translate 760ms var(--editorial-ease),
-      scale 760ms var(--editorial-ease),
-      filter 760ms var(--editorial-ease);
-  }
-}
-
 @media (max-width: 1023px) {
   .trabalhos-track {
     --work-motion-scale: 0.42;
@@ -294,14 +241,6 @@
 @media (prefers-reduced-motion: reduce) {
   .maquina-loader-float {
     animation: none;
-  }
-
-  [data-reveal] {
-    opacity: 1;
-    translate: 0 0;
-    scale: 1;
-    filter: none;
-    transition: none;
   }
 
   .parallax-soft {

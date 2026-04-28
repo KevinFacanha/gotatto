@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { getRevealProps, getStaggerItemProps, getStaggerProps } from "../lib/scrollReveal";
 import heroVideo from "../video1.mp4";
 import BrandSymbol from "./BrandSymbol";
 
@@ -73,7 +75,7 @@ function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-surface pt-28 pb-16">
+    <section className="relative min-h-screen overflow-hidden bg-surface pb-16 pt-28 md:pb-20 md:pt-32">
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <div className="relative w-full h-full overflow-hidden will-change-transform" ref={videoFrameRef}>
           <video
@@ -91,59 +93,67 @@ function HeroSection() {
           <div className="absolute inset-0 bg-gradient-to-t from-surface/88 via-transparent to-surface/74" />
           <div className="absolute inset-0 bg-gradient-to-l from-tertiary-container/15 to-transparent" />
         </div>
-        <div className="parallax-soft absolute -left-24 top-[16%] h-[20rem] w-[20rem] rounded-full bg-tertiary-container/14 blur-[145px]" data-parallax="0.22" />
+        <div className="parallax-soft absolute -left-24 top-[16%] h-[20rem] w-[20rem] rounded-full bg-tertiary-container/14 blur-[145px]" data-speed="0.2" />
         <div
           className="parallax-soft absolute -right-40 top-[18%] h-[24rem] w-[24rem] rounded-full bg-on-surface/8 blur-[160px]"
-          data-parallax="-0.16"
+          data-speed="-0.35"
+          data-speed-range="88"
         />
         <div
           className="parallax-soft absolute left-[32%] bottom-[-7rem] h-[16rem] w-[24rem] rounded-full bg-primary-fixed/10 blur-[132px]"
-          data-parallax="0.1"
+          data-speed="0.5"
+          data-speed-range="64"
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-11rem)] w-full max-w-[1600px] items-center px-4 sm:px-8 md:px-12 lg:px-16">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-11rem)] w-full max-w-[1600px] items-center px-4 sm:px-8 md:px-12 xl:px-16">
         <div className="relative flex w-full items-center justify-center">
-          <div className="absolute left-0 right-0 top-[16%] flex items-center justify-between gap-6 px-2 text-center lg:hidden">
-            <p className="font-label text-[10px] font-medium tracking-[0.22em] text-on-surface-variant/85 uppercase reveal-delay-1" data-reveal>
+          <motion.div
+            className="absolute left-0 right-0 top-[16%] flex items-center justify-between gap-6 px-2 text-center md:top-[18%] md:px-8 xl:hidden"
+            {...getStaggerProps({ amount: 0.22, delayChildren: 0.04, staggerChildren: 0.08 })}
+          >
+            <motion.p className="font-label text-[10px] font-medium tracking-[0.22em] text-on-surface-variant/85 uppercase" {...getStaggerItemProps()}>
               TRAÇO PRECISO
-            </p>
-            <p className="font-label text-[10px] font-medium tracking-[0.22em] text-on-surface-variant/85 uppercase reveal-delay-1" data-reveal>
+            </motion.p>
+            <motion.p className="font-label text-[10px] font-medium tracking-[0.22em] text-on-surface-variant/85 uppercase" {...getStaggerItemProps()}>
               PRESENÇA VISUAL
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <p
-            className="absolute left-0 top-1/2 hidden -translate-y-1/2 text-left font-label text-[clamp(0.72rem,0.95vw,0.94rem)] font-medium tracking-[0.18em] text-on-surface-variant/85 uppercase lg:block reveal-delay-2"
-            data-reveal
+          <motion.p
+            className="absolute left-0 top-1/2 hidden -translate-y-1/2 text-left font-label text-[clamp(0.72rem,0.95vw,0.94rem)] font-medium tracking-[0.18em] text-on-surface-variant/85 uppercase xl:block"
+            {...getRevealProps({ delay: 0.08 })}
           >
             Arte que atravessa o tempo
-          </p>
-          <p
-            className="absolute right-0 top-1/2 hidden -translate-y-1/2 text-right font-label text-[clamp(0.72rem,0.95vw,0.94rem)] font-medium tracking-[0.18em] text-on-surface-variant/85 uppercase lg:block reveal-delay-2"
-            data-reveal
+          </motion.p>
+          <motion.p
+            className="absolute right-0 top-1/2 hidden -translate-y-1/2 text-right font-label text-[clamp(0.72rem,0.95vw,0.94rem)] font-medium tracking-[0.18em] text-on-surface-variant/85 uppercase xl:block"
+            {...getRevealProps({ delay: 0.14 })}
           >
             Composição autoral absoluta
-          </p>
+          </motion.p>
 
-          <div className="relative text-center">
-            <div className="mx-auto mb-7 flex w-fit justify-center reveal-delay-2" data-reveal>
+          <motion.div
+            className="relative mx-auto w-full max-w-[52rem] text-center"
+            {...getStaggerProps({ amount: 0.24, delayChildren: 0.08, staggerChildren: 0.08 })}
+          >
+            <motion.div className="mx-auto mb-7 flex w-fit justify-center" {...getStaggerItemProps()}>
               <BrandSymbol />
-            </div>
+            </motion.div>
 
-            <h1
-              className="font-headline text-[clamp(2.55rem,8.7vw,6.7rem)] font-black uppercase leading-[0.92] tracking-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-tertiary-container to-on-primary-fixed-variant reveal-delay-3"
-              data-reveal
+            <motion.h1
+              className="bg-gradient-to-r from-tertiary-container to-on-primary-fixed-variant bg-clip-text font-headline text-[clamp(2.55rem,8.7vw,6.7rem)] font-black uppercase leading-[0.92] tracking-[0.1em] text-transparent"
+              {...getStaggerItemProps({ duration: 0.64 })}
             >
-              GOTATTO
-            </h1>
-            <p
-              className="mt-5 font-label text-[clamp(0.58rem,0.92vw,0.8rem)] font-medium uppercase tracking-[0.44em] text-on-surface-variant/80 reveal-delay-4"
-              data-reveal
+              GOTA TATTOO
+            </motion.h1>
+            <motion.p
+              className="mt-5 font-label text-[clamp(0.58rem,0.92vw,0.8rem)] font-medium uppercase tracking-[0.44em] text-on-surface-variant/80"
+              {...getStaggerItemProps({ duration: 0.56 })}
             >
               São Paulo / Estúdio Autoral
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </div>
 

@@ -1,17 +1,24 @@
+import { motion } from "framer-motion";
+import { getRevealProps, getStaggerItemProps, getStaggerProps } from "../lib/scrollReveal";
+
 const INSTAGRAM_URL = "https://www.instagram.com/gotattooink/";
 const WHATSAPP_URL = "https://wa.me/5511942521850";
+const EMAIL_URL = "mailto:gotattoo_@outlook.com";
 
 function Footer() {
   return (
-    <footer className="w-full py-24 px-8 mt-24 bg-[#1C1B1C]">
-      <div className="max-w-[1920px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12 w-full" data-reveal>
-        <div className="flex flex-col gap-8 max-w-md">
-          <div className="text-lg font-bold text-white font-['Space_Grotesk'] uppercase tracking-tighter">GOTATTO</div>
+    <footer className="mt-24 w-full bg-[#1C1B1C] px-4 py-24 sm:px-8 md:px-12 xl:px-16">
+      <motion.div
+        className="mx-auto flex w-full max-w-[1920px] flex-col items-start justify-between gap-12 lg:flex-row"
+        {...getStaggerProps({ amount: 0.22, delayChildren: 0.04, staggerChildren: 0.1 })}
+      >
+        <motion.div className="max-w-md flex flex-col gap-8" {...getStaggerItemProps()}>
+          <div className="text-lg font-bold text-white font-['Space_Grotesk'] uppercase tracking-tighter">GOTA TATTOO</div>
           <p className="text-white/40 font-['GeistMono'] text-sm leading-relaxed uppercase">
             Estúdio autoral focado em tatuagem com linguagem visual forte, estética underground e construção de peças com identidade.
           </p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-24">
+        </motion.div>
+        <motion.div className="grid grid-cols-1 gap-12 sm:grid-cols-2 md:gap-16" {...getStaggerItemProps({ delay: 0.08 })}>
           <div className="flex flex-col gap-4">
             <span className="text-[#FF4500] font-['GeistMono'] text-xs uppercase tracking-widest mb-2">Contato</span>
             <a
@@ -32,7 +39,7 @@ function Footer() {
             </a>
             <a
               className="text-white/40 hover:text-white transition-colors hover:translate-x-1 transition-transform font-['GeistMono'] text-xs uppercase tracking-widest"
-              href="#"
+              href={EMAIL_URL}
             >
               E-mail
             </a>
@@ -46,14 +53,17 @@ function Footer() {
               Agendamento
             </a>
           </div>
-        </div>
-      </div>
-      <div className="max-w-[1920px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-8 reveal-delay-2" data-reveal>
+        </motion.div>
+      </motion.div>
+      <motion.div
+        className="mx-auto mt-24 flex max-w-[1920px] flex-col justify-between gap-8 border-t border-white/5 pt-8 md:flex-row"
+        {...getRevealProps({ delay: 0.1 })}
+      >
         <div className="font-['GeistMono'] text-[10px] text-white/20 uppercase tracking-[0.3em]">
-          © 2026 GOTATTO. TODOS OS DIREITOS RESERVADOS.
+          © 2026 GOTA TATTOO. TODOS OS DIREITOS RESERVADOS.
         </div>
         <div className="font-['GeistMono'] text-[10px] text-white/20 uppercase tracking-[0.3em]">ARTE NA PELE.</div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

@@ -25,8 +25,9 @@ function Navbar() {
   const menuText = useScrambleText("MENU", 420);
   const menuItems = useMemo(
     () => [
+      { label: "Sobre Mim", target: "sobre" },
       { label: "Trabalhos", target: "trabalhos" },
-      { label: "Serviços", target: "servicos" },
+      { label: "Quadros", target: "quadros" },
       { label: "Manifesto", target: "manifesto" },
       { label: "Contato", target: "contato" },
     ],
@@ -59,8 +60,8 @@ function Navbar() {
       setIsMenuOpen(false);
     };
 
-    window.addEventListener("gotatto:force-close-overlays", onForceClose);
-    return () => window.removeEventListener("gotatto:force-close-overlays", onForceClose);
+    window.addEventListener("gota-tattoo:force-close-overlays", onForceClose);
+    return () => window.removeEventListener("gota-tattoo:force-close-overlays", onForceClose);
   }, []);
 
   useEffect(() => {
@@ -109,7 +110,7 @@ function Navbar() {
             aria-label="Iniciar agora"
             className="rounded-full border border-white/55 bg-black/12 px-7 py-[0.62rem] text-[11px] font-label font-medium uppercase tracking-[0.16em] text-white/95 backdrop-blur-[2px] transition-all duration-300 hover:border-white hover:bg-black/30"
             onMouseEnter={startNowText.startScramble}
-            onClick={() => scrollToSection("contato")}
+            onClick={() => scrollToSection("hero")}
             type="button"
           >
             <ScrambleLabel baseText="INICIAR AGORA" displayText={startNowText.displayText} />
@@ -165,7 +166,7 @@ function Navbar() {
             <div className="flex flex-col items-center gap-5">
               <BrandSymbol className="w-[clamp(4.6rem,9vw,7.2rem)] text-on-surface drop-shadow-lg" />
               <p className="font-headline text-[clamp(2rem,5vw,3.6rem)] font-black uppercase tracking-[0.08em] text-transparent bg-clip-text bg-gradient-to-r from-tertiary-container to-on-primary-fixed-variant">
-                GOTATTO
+                GOTA TATTOO
               </p>
             </div>
 

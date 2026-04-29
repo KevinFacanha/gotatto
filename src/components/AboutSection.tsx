@@ -16,14 +16,16 @@ function AboutSection() {
           <span aria-hidden="true" className="mt-8 h-16 w-px bg-outline-variant/70 md:h-20" />
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-stretch md:gap-8 xl:gap-12">
-          <motion.figure className="group relative isolate overflow-hidden bg-surface-container-highest ring-1 ring-white/10 md:col-span-7 xl:col-span-8" {...getRevealProps({ delay: 0.1 })}>
-            <div className="parallax-soft aspect-[4/5] w-full sm:aspect-[16/10]" data-speed="0.2" data-speed-range="54">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.16fr)_minmax(19rem,0.84fr)] md:items-center md:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] xl:grid-cols-12 xl:items-stretch xl:gap-12">
+          <motion.figure
+            className="group relative isolate overflow-hidden bg-surface-container-highest ring-1 ring-white/10 md:col-span-1 md:h-[35rem] md:min-h-0 lg:h-[38rem] xl:col-span-8 xl:h-auto"
+            {...getRevealProps({ delay: 0.1 })}
+          >
+            <div className="parallax-soft aspect-[4/5] w-full sm:aspect-[16/10] md:h-full md:aspect-auto xl:aspect-[16/10]" data-speed="0.2" data-speed-range="54">
               <img
                 alt="Retrato na neve"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out motion-safe:lg:group-hover:scale-[1.06]"
+                className="h-full w-full object-cover object-[44%_35%] transition-transform duration-700 ease-out md:object-[50%_30%] xl:object-[44%_35%] motion-safe:lg:group-hover:scale-[1.06]"
                 src={foto1}
-                style={{ objectPosition: "44% 35%" }}
               />
             </div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/92 via-surface/38 to-surface/58" />
@@ -36,7 +38,7 @@ function AboutSection() {
           </motion.figure>
 
           <motion.div
-            className="flex h-full flex-col justify-between gap-7 border-l border-outline-variant/70 pl-4 md:col-span-5 md:pl-6 md:pt-2 xl:col-span-4"
+            className="flex h-full flex-col justify-center gap-8 border-l border-outline-variant/70 pl-4 md:col-span-1 md:max-w-[25rem] md:self-center md:pl-8 md:pr-2 lg:max-w-[27rem] xl:col-span-4 xl:max-w-none xl:justify-between xl:gap-7 xl:pl-6 xl:pr-0 xl:pt-2"
             {...getRevealProps({ delay: 0.04 })}
           >
             <div>
@@ -44,7 +46,7 @@ function AboutSection() {
               <h3 className="mt-4 font-headline text-[clamp(1.5rem,2.1vw,2.1rem)] font-black uppercase tracking-[0.06em] text-on-surface">
                 MINHA TRAJETÓRIA
               </h3>
-              <p className="mt-4 max-w-[34ch] text-pretty text-[1.02rem] leading-relaxed text-on-surface-variant">
+              <p className="mt-4 max-w-[34ch] text-pretty text-[1.02rem] leading-relaxed text-on-surface-variant md:max-w-[39ch] xl:max-w-[34ch]">
                 Muito prazer, meu nome é Rafael, tenho 28 anos e atuo como tatuador profissional há mais de uma década. Desenho desde a infância e iniciei
                 minha trajetória na tatuagem aos 18 anos. Desde então, venho me especializando por meio de cursos e workshops com
                 artistas nacionais e internacionais, sempre com foco em precisão, segurança e qualidade.
